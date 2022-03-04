@@ -1,9 +1,9 @@
 # SocialClub Notification Blocker
 Next-generation firewall (NGFW) that supports blocking SocialClub Overlay notifications.
 
-<img src="/img/SCBlockerTease1.png" alt="Main Menu" height=300>
+### [Download v0.1.0](https://github.com/Speyedr/socialclub-notification-blocker/releases/download/v0.1.0/SocialClubBlocker-0.1.0.zip)
 
-### Download v0.1 (TODO)
+<img src="/img/SCBlockerTease1.png" alt="Main Menu" height=300>
 
 ## Usage
 1. Download and extract (or build yourself).
@@ -26,7 +26,7 @@ Next-generation firewall (NGFW) that supports blocking SocialClub Overlay notifi
  - Filter #1 `DROP_INC_80` is much faster and impacts network performance less but you will be flooded with notifications when the filter is turned off.
  - Filter #3 `DROP_LENGTHS` is the most complicated and still under development and therefore not recommended.
 
-   <img src="/img/SCBlockerTease3.png" alt="Logging dropped packets" height=175>
+   <img src="/img/SCBlockerTease3.png" alt="Logging dropped packets" height=120>
 
 ## Bugs / Issues
  - If you encounter a crash or otherwise application-breaking bug, please follow the instructions and [submit an issue here](https://github.com/Speyedr/socialclub-notification-blocker/issues/new/choose).
