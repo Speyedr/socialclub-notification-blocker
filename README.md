@@ -29,7 +29,7 @@ Next-generation firewall (NGFW) that supports blocking SocialClub Overlay notifi
    <img src="/img/SCBlockerTease3.png" alt="Logging dropped packets" height=175>
 
 ## Bugs / Issues
- - If you encounter a crash or otherwise application-breaking bug, please follow the instructions and [submit an issue here](/issues/new/choose).
+ - If you encounter a crash or otherwise application-breaking bug, please follow the instructions and [submit an issue here](https://github.com/Speyedr/socialclub-notification-blocker/issues/new/choose).
 
 ## Build instructions
  - `pip install requirements.txt`
@@ -42,7 +42,7 @@ Next-generation firewall (NGFW) that supports blocking SocialClub Overlay notifi
  - ADA: `addr1qy6xlrpv43xjwhjpdvalccjxm3tf46f5cu7uh5uhexzgwyudcmm3ty8entef6tu3dgf8chn70tc3uql0kkrj0f62mw9sxh29w3`
 
 ## LICENSE
- - Use of this program is offered under the [GNU GPLv3.0 License](/blob/main/LICENSE).
+ - Use of this program is offered under the [GNU GPLv3.0 License](LICENSE).
 
 ## CONTRIBUTING
  - Currently, contributions to this project will not be accepted. However,
