@@ -1,3 +1,9 @@
+ignore/
+build/
+
+config.ini
+debug.log
+logger.log
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
