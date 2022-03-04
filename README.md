@@ -36,7 +36,7 @@ Next-generation firewall (NGFW) that supports blocking SocialClub Overlay notifi
  - `python setup.py build`
 
 ## DONATE
- - PayPal / Card: https://ko-fi.com/speyedr
+ - PayPal / Card: [ko-fi.com/Speyedr](https://ko-fi.com/speyedr)
  - BTC: `347M8sHnahA98c7MjHGmvsb5pVUJeUcMZ5`
  - ETH: `0xDBAa338137Fc53BA007D7Cf99DD94908e8Fdb6d8`
  - ADA: `addr1qy6xlrpv43xjwhjpdvalccjxm3tf46f5cu7uh5uhexzgwyudcmm3ty8entef6tu3dgf8chn70tc3uql0kkrj0f62mw9sxh29w3`
