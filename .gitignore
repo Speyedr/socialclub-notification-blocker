@@ -1,0 +1,6 @@
+ignore/
+build/
+
+config.ini
+debug.log
+logger.log
