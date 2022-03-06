@@ -2,7 +2,7 @@
 
 ### [Download v0.1.0](https://github.com/Speyedr/socialclub-notification-blocker/releases/download/v0.1.0/SocialClubBlocker-0.1.0.zip)
 
-<img src="/img/SCBlockerTease1.png" alt="Main Menu" height=300>
+<img src="/img/SCBlockerTease1.png" alt="Main Menu" height=300 width=562>
 
 ## Usage
 1. Download and extract (or build yourself).
@@ -28,18 +28,18 @@
  - Filter #1 `DROP_INC_80` is much faster and impacts network performance less but you will be flooded with notifications when the filter is turned off.
  - Filter #3 `DROP_LENGTHS` is the most complicated and still under development and therefore not recommended.
 
-   <img src="/img/SCBlockerTease3.png" alt="Logging dropped packets" height=120>
+   <img src="/img/SCBlockerTease3.png" alt="Logging dropped packets" height=120 width=527>
 
 ## Bugs / Issues
  - If you encounter a crash or otherwise application-breaking bug, please follow the instructions and [submit an issue here](https://github.com/Speyedr/socialclub-notification-blocker/issues/new/choose).
 
-## Build instructions
+## Build Instructions
 #### Windows
 
 1) Install Python 3 (3.8+ recommended)
 
     - If this is your first and only Python install, enabling the check-box `Add Python to PATH` will make the next step easier.
-3) Run the following commands in a command prompt:
+2) Run the following commands in a command prompt:
 ```
 :: Make sure to open the command prompt in / navigate to your local repo directory before running these commands.
 C:\Users\Speyedr\socialclub-notification-blocker> pip install requirements.txt
@@ -69,5 +69,6 @@ C:\Users\Speyedr\socialclub-notification-blocker> python setup.py build
  - Use of this program is offered under the [GNU GPLv3.0 License](LICENSE).
 
 ## CONTRIBUTING
- - Currently, contributions to this project will not be accepted. However,
+ - If you have found a bug, you can help contribute by [opening an issue](https://github.com/Speyedr/socialclub-notification-blocker/issues/new/choose).
+ - Pull requests are currently closed.
  - Under terms of this project's license, you are more than welcome to create your own variations based on my work so long as you retain any and all copyright notices, references, credits, and also use this software's license when releasing any derivative work.
