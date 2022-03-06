@@ -8,8 +8,11 @@ Next-generation firewall (NGFW) that supports blocking SocialClub Overlay notifi
 ## Usage
 1. Download and extract (or build yourself).
 2. Run `SCBlocker.exe` as Administrator.
-3. If the program is running and the network filter is **ON**, notifications should now be blocked and won't reach your client.
-4. Use the keys on your keyboard to navigate the menu.
+
+    - Alternatively, if you have Python, you can run directly from the interpreter by executing `python main.py` in an elevated command prompt while at the repo directory.
+    - If you use this method then no build is needed.
+4. If the program is running and the network filter is **ON**, notifications should now be blocked and won't reach your client.
+5. Use the keys on your keyboard to navigate the menu.
 
 ## Configuration
  - Automatically saves your settings at `settings.ini`. Don't touch it. If you do and the program crashes, delete the file, restart the program, and the program will revert to defaults.
@@ -32,8 +35,30 @@ Next-generation firewall (NGFW) that supports blocking SocialClub Overlay notifi
  - If you encounter a crash or otherwise application-breaking bug, please follow the instructions and [submit an issue here](https://github.com/Speyedr/socialclub-notification-blocker/issues/new/choose).
 
 ## Build instructions
- - `pip install requirements.txt`
- - `python setup.py build`
+#### Windows
+
+1) Install Python 3 (3.8+ recommended)
+
+    - If this is your first and only Python install, enabling the check-box `Add Python to PATH` will make the next step easier.
+3) Run the following commands in a command prompt:
+```
+:: Make sure to open the command prompt in / navigate to your local repo directory before running these commands.
+C:\Users\Speyedr\socialclub-notification-blocker> pip install requirements.txt
+:: If 'pip' is not recognised (i.e. it wasn't added to PATH) then you will need to provide the absolute path to pip.exe, e.g.
+:: Make sure to check your exact install directory (your version number or bundle may be different)
+:: C:\Users\Speyedr\socialclub-notification-blocker> "C:\Program Files\Python 3.8\Scripts\pip.exe" install requirements.txt
+C:\Users\Speyedr\socialclub-notification-blocker> python setup.py build
+:: Again, if python is not recognised then you will need to use the absolute path instead:
+:: C:\Users\Speyedr\socialclub-notification-blocker> "C:\Program Files\Python 3.8\python.exe" setup.py build
+```
+
+## Credits
+
+### Guinea Pigs
+
+- [Wes0617](https://github.com/Wes0617)
+- MrAlvie
+
 
 ## DONATE
  - PayPal / Card: [ko-fi.com/Speyedr](https://ko-fi.com/speyedr)
