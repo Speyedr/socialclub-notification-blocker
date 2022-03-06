@@ -9,7 +9,7 @@
 2. Run `SCBlocker.exe` as Administrator.
 
     - Alternatively, if you have Python, you can run directly from the interpreter by executing `python main.py` in an elevated command prompt while at the repo directory.
-    - If you use this method then no build is needed.
+      - If you use this method then no build is needed.
 4. If the program is running and the network filter is **ON**, notifications should now be blocked and won't reach your client.
 5. Use the keys on your keyboard to navigate the menu.
 
@@ -24,8 +24,8 @@
 
 ## Filters
  - This app provides three different filtering heuristics that all target different points in the chain of communication between your client and the SocialClub Overlay.
+ - Filter #1 `DROP_INC_80` is the fastest and impacts performance the least but you may be flooded with notifications when the filter is turned off.
  - Filter #2 `DROP_CLIENT_POST` is enabled by default as the end result is probably what most users are looking for.
- - Filter #1 `DROP_INC_80` is much faster and impacts network performance less but you will be flooded with notifications when the filter is turned off.
  - Filter #3 `DROP_LENGTHS` is the most complicated and still under development and therefore not recommended.
 
    <img src="/img/SCBlockerTease3.png" alt="Logging dropped packets" height=120 width=527>
