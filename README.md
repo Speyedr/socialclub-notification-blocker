@@ -1,5 +1,4 @@
 # SocialClub Notification Blocker
-Next-generation firewall (NGFW) that supports blocking SocialClub Overlay notifications.
 
 ### [Download v0.1.0](https://github.com/Speyedr/socialclub-notification-blocker/releases/download/v0.1.0/SocialClubBlocker-0.1.0.zip)
 
