@@ -68,7 +68,7 @@ class Logger:
         length = str(len(packet.payload))
         source = packet.src_addr + ":" + str(packet.src_port)
         destination = packet.dst_addr + ":" + str(packet.dst_port)
-        print("Parts:", protocol, destination, rule, length, source, destination)
+        #print("Parts:", protocol, destination, rule, length, source, destination)
         message = protocol+" PACKET "+decision+" FROM "+str_pad_right(source)+" -> "+\
             str_pad_right(destination)+" Len:"+str_pad_right(length, 8)+" Reason:"+rule
         return message
