@@ -74,4 +74,4 @@ try:
 except:
     pass
 
-zip_folder(build_path, 'build\exe\SCBlocker-{}.zip'.format(version))
+zip_folder(build_path, 'build\exe\SocialClubBlocker-{}.zip'.format(version))
