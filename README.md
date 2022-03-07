@@ -1,11 +1,11 @@
 # SocialClub Notification Blocker
 
-### [Download v0.1.0](https://github.com/Speyedr/socialclub-notification-blocker/releases/download/v0.1.0/SocialClubBlocker-0.1.0.zip)
+# [Download v0.1.1](https://github.com/Speyedr/socialclub-notification-blocker/releases/download/v0.1.1/SocialClubBlocker-0.1.1.zip)
 
 <img src="/img/SCBlockerTease1.png" alt="Main Menu" height=300 width=562>
 
 ## Usage
-1. Download and extract (or build yourself).
+1. Download and extract (or build yourself). The direct download link to the latest compiled release is above this message.
 2. Run `SCBlocker.exe` as Administrator.
 
     - Alternatively, if you have Python, you can run directly from the interpreter by executing `python main.py` in an elevated command prompt while at the repo directory.
