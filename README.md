@@ -34,6 +34,7 @@
  - If you encounter a crash or otherwise application-breaking bug, please follow the instructions and [submit an issue here](https://github.com/Speyedr/socialclub-notification-blocker/issues/new/choose).
 
 ## Build Instructions
+**NOTE:** If you are just looking for the download without building yourself, you need to go to [Releases](https://github.com/Speyedr/socialclub-notification-blocker/releases) instead. Or just click the "Download" link near the top of this page.
 #### Windows
 
 1) Install Python 3 (3.8+ recommended)
@@ -42,10 +43,10 @@
 2) Run the following commands in a command prompt:
 ```
 :: Make sure to open the command prompt in / navigate to your local repo directory before running these commands.
-C:\Users\Speyedr\socialclub-notification-blocker> pip install requirements.txt
+C:\Users\Speyedr\socialclub-notification-blocker> pip install -r requirements.txt
 :: If 'pip' is not recognised (i.e. it wasn't added to PATH) then you will need to provide the absolute path to pip.exe, e.g.
 :: Make sure to check your exact install directory (your version number or bundle may be different)
-:: C:\Users\Speyedr\socialclub-notification-blocker> "C:\Program Files\Python 3.8\Scripts\pip.exe" install requirements.txt
+:: C:\Users\Speyedr\socialclub-notification-blocker> "C:\Program Files\Python 3.8\Scripts\pip.exe" install -r requirements.txt
 C:\Users\Speyedr\socialclub-notification-blocker> python setup.py build
 :: Again, if python is not recognised then you will need to use the absolute path instead:
 :: C:\Users\Speyedr\socialclub-notification-blocker> "C:\Program Files\Python 3.8\python.exe" setup.py build
