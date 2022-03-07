@@ -28,7 +28,7 @@ from sys import exit as sys_exit
 
 DONATE = "https://ko-fi.com/speyedr"
 
-VERSION = "0.1"
+VERSION = "0.1.1"
 WINDOW_NAME = "Speyedr's SocialClub Notification Blocker v" + VERSION
 UI_WAIT_TIME = 0.01
 UI_TOP_MARGIN = 1

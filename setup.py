@@ -15,11 +15,11 @@ build_options = dict(packages=[], includes=['pydivert'],
                      replace_paths=[("*", "")], optimize=2, zip_include_packages="*",
                      zip_exclude_packages=zip_exclude_packages, silent=True)
 executables = [
-    Executable('main.py', targetName="SCBlocker.exe", icon="SCBlocker.ico",
+    Executable('main.py', targetName="SCBlocker.exe", icon="icon.ico",
                copyright='Copyright (C) 2022 Daniel Summer')
 ]
 
-version = "0.1.0"
+version = "0.1.1"
 
 build_path = 'build/exe.win-amd64-{}.{}'.format(sys.version_info.major, sys.version_info.minor)
 
