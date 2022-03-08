@@ -89,6 +89,6 @@ C:\Users\Speyedr\socialclub-notification-blocker> python setup.py build
 
 ## CONTRIBUTIONS 
 
-* Si vous avez trouvé un bug, vous pouvez aider en signalant un problème.
+* Si vous avez trouvé un bug, vous pouvez aider en [signalant un problème](https://github.com/Speyedr/socialclub-notification-blocker/issues/new/choose).
 * Les demandes d'extraction sont actuellement fermées.
 * Selon les termes de la licence de ce projet, vous êtes plus que bienvenu pour créer vos propres variations basées sur mon travail tant que vous conservez tous les avis de droit d'auteur, références, crédits et utilisez également la licence de ce logiciel lors de la publication de tout travail dérivé.
