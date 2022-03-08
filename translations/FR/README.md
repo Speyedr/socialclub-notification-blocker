@@ -69,12 +69,12 @@ C:\Users\Speyedr\socialclub-notification-blocker> python setup.py build
 
 ### Cochons d'Inde
 
-* Wes0617
+* [Wes0617](https://github.com/Wes0617)
 * MrAlvie
 
 ### Traduction / Translation
 
-* coeurGG (Traduction Française / French Translation) | Note de Coeur : Si vous trouvez la moindre faute ou une mauvaise traduction, n'hésitez pas à me contacter sur le fork que j'ai fait.
+* [coeurGG](https://github.com/coeurGG) (Traduction Française / French Translation) | Note de Coeur : Si vous trouvez la moindre faute ou une mauvaise traduction, n'hésitez pas à me contacter sur le fork que j'ai fait.
 
 ## DONATE
 
