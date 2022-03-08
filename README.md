@@ -1,5 +1,7 @@
 # SocialClub Notification Blocker
 
+English | [French](translations/FR/README.md)
+
 # [Download v0.1.1](https://github.com/Speyedr/socialclub-notification-blocker/releases/download/v0.1.1/SocialClubBlocker-0.1.1.zip)
 
 <img src="/img/SCBlockerTease1.png" alt="Main Menu" height=300 width=562>
@@ -58,6 +60,10 @@ C:\Users\Speyedr\socialclub-notification-blocker> python setup.py build
 
 - [Wes0617](https://github.com/Wes0617)
 - MrAlvie
+
+### Translators
+
+- [coeurGG](https://github.com/coeurGG) (French)
 
 
 ## DONATE
