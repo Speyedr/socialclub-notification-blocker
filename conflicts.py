@@ -4,6 +4,7 @@ Checks for specific programs or services that may conflict with SCBlocker.
 Author: Daniel "Speyedr" Summer
 """
 
+from logger import Logger                           # :peepolove:
 from psutil import Process, process_iter
 from pygtrie import StringTrie, CharTrie
 from re import compile, match, search, MULTILINE
@@ -25,7 +26,7 @@ POSSIBLE_CONFLICTS = [
                       "mitmdump",
                       "mitmweb",
                       "vpnhood",
-                      "warp",
+                      "warp.exe",
                       "warp-svc"
                      ]
 
@@ -39,6 +40,8 @@ WINDIVERT_LIBRARIES = [
 STRING_SEPARATOR = "\x00"      # process names can't have a null byte in them so will use as separator
 PROCESS_SUFFIX = ".exe"        # all process names end in .exe
 LIBRARY_SUFFIX = ".dll"        # all dynamic link libraries end in .dll
+
+LOG_FILE = "conflicts.log"     # DEBUG: will be changed to debug.log in production
 
 # Matches the name of a file from a directory path
 FILE_GET_NAME = compile("(?<=\\\\)[^\\\\]+$")    # Backslash plague makes me want to cry
@@ -98,12 +101,20 @@ def get_conflicts(process_trie=None, process_conflicts=None):
             conflicts.append(this_match)        # add the match to list of conflicts
             del process_trie[this_match]        # remove it from the trie, we already know it's a conflict
 
+    """
+    Thinking about this now, if we have step 2, step 1 is _probably_ redundant?
+    Will leave both in for now, but like, wouldn't we end up finding those processes from step 1 with step 2 anyways?
+    ...unless those processes have statically linked? Will need to test.
+    """
+
     # STEP 2: Any processes that contain conflicting modules.
-    for windivert in WINDIVERT_LIBRARIES:
+    for windivert in library_conflicts:
         for process_name, module_trie in process_trie.items():
             matches = module_trie.keys(windivert)
             if len(matches) > 0:                # there are modules in this process that match a conflict
                 conflicts.append(process_name)  # append the process. we don't actually care which modules matched
+            del process_trie[process_name]      # technically not necessary cause no more processing
 
+    Logger.static_add_message("Conflicts found: " + str(conflicts))
     return conflicts
 
