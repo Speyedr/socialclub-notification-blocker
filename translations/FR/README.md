@@ -2,6 +2,10 @@
 
 [English](../../README.md) | French
 
+**8 Mars 2022 MISE A JOUR: Rockstar a patch le problème du spectateur mode.**
+
+**J'ai fait une annonce ici [Le futur de SCBlocker (bientôt traduit)](https://github.com/Speyedr/socialclub-notification-blocker/discussions/12).**
+
 # [Download v0.1.1](https://github.com/Speyedr/socialclub-notification-blocker/releases/download/v0.1.1/SocialClubBlocker-0.1.1.zip)
 
 <img src="/img/SCBlockerTease1.png" alt="Main Menu" height=300 width=562>
@@ -74,7 +78,7 @@ C:\Users\Speyedr\socialclub-notification-blocker> python setup.py build
 
 ### Traduction / Translation
 
-* [coeurGG](https://github.com/coeurGG) (Traduction Française / French Translation) | Note de Coeur : Si vous trouvez la moindre faute ou une mauvaise traduction, n'hésitez pas à me contacter sur le fork que j'ai fait.
+* [coeurGG](https://github.com/coeurGG) Traduction Française | Note de Coeur : Si vous trouvez la moindre faute ou une mauvaise traduction, n'hésitez pas à me contacter sur le fork que j'ai fait.
 
 ## DONATE
 
