@@ -1,6 +1,6 @@
 # SocialClub Notification Blocker
 
-[English](README.md) | French
+[English](../../README.md) | French
 
 # [Download v0.1.1](https://github.com/Speyedr/socialclub-notification-blocker/releases/download/v0.1.1/SocialClubBlocker-0.1.1.zip)
 
