@@ -25,11 +25,12 @@ from traceback import format_exc
 from settings import Settings
 from ctypes import windll
 from sys import exit as sys_exit
-from setup import version as PROGRAM_VERSION    # reference version from the build script
+#from setup import version as PROGRAM_VERSION    # reference version from the build script
+# actually, probably better the build script references main instead
 
 DONATE = "https://ko-fi.com/speyedr"
 
-VERSION = PROGRAM_VERSION
+VERSION = "0.1.1"
 WINDOW_NAME = "Speyedr's SocialClub Notification Blocker v" + VERSION
 UI_WAIT_TIME = 0.01
 UI_TOP_MARGIN = 1

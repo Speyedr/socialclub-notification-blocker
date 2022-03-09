@@ -4,6 +4,7 @@ https://gitlab.com/digitalarc/guardian/-/blob/master/setup.py
 """
 
 from cx_Freeze import setup, Executable
+from main import VERSION
 import sys
 import zipfile
 import os
@@ -19,7 +20,7 @@ executables = [
                copyright='Copyright (C) 2022 Daniel Summer')
 ]
 
-version = "0.1.1"
+version = VERSION
 
 build_path = 'build/exe.win-amd64-{}.{}'.format(sys.version_info.major, sys.version_info.minor)
 
