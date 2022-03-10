@@ -1,6 +1,6 @@
 # SocialClub Notification Blocker
 
-[English](../../README.md) | French
+English | [French](translations/FR/README.md) | [Russian](translations/RU/README.md)
 
 **8 Mars 2022 MISE A JOUR: Rockstar a patch le problème du spectateur mode.**
 
