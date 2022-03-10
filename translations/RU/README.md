@@ -2,7 +2,7 @@
 
 English | [French](translations/FR/README.md) | [Russian](translations/RU/README.md)
 
-** ОБНОВЛЕНИЕ ОТ 8 МАРТА 2022: Rockstar убрали эксплоит, позволяющий приглашать в режиме наблюдателя.**
+**ОБНОВЛЕНИЕ ОТ 8 МАРТА 2022: Rockstar убрали эксплоит, позволяющий приглашать в режиме наблюдателя.**
 
 **Я сделал объявление по поводу [будущего SCBlocker](https://github.com/Speyedr/socialclub-notification-blocker/discussions/12).**
 
@@ -68,7 +68,7 @@ C:\Users\Speyedr\socialclub-notification-blocker> python setup.py build
 ### Переводчики
 
 - [coeurGG](https://github.com/coeurGG) (French)
-
+- [Foxie117](https://github.com/Foxie117) (Russian)
 
 ## Пожертвования
  - PayPal / Карта: [ko-fi.com/Speyedr](https://ko-fi.com/speyedr)
