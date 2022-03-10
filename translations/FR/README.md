@@ -79,6 +79,7 @@ C:\Users\Speyedr\socialclub-notification-blocker> python setup.py build
 ### Traduction / Translation
 
 * [coeurGG](https://github.com/coeurGG) Traduction Française | Note de Coeur : Si vous trouvez la moindre faute ou une mauvaise traduction, n'hésitez pas à me contacter sur le fork que j'ai fait.
+* [Foxie117](https://github.com/Foxie117) (Russian)
 
 ## DONATE
 
