@@ -1,6 +1,6 @@
 ---
-name: Submit Translation
-about: Submit a Translation for this project
+name: Submit translation
+about: Submit a translation for this project
 title: "[Translation Submission] "
 labels: ["enhancement", "documentation"]
 assignees: ''
