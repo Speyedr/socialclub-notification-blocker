@@ -1,60 +1,59 @@
 # SocialClub Notification Blocker
 
-English | [French](translations/FR/README.md)
+English | [French](translations/FR/README.md) | [Romanian](translations/RO/README.md)  
 
-**8th of March, 2022 UPDATE: Rockstar has patched the current spectator exploit.**
+**8 Martie, 2022 UPDATE: Rockstar a reparat exploit-ul legat de modul spectator.**
 
-**I've made an announcement on [the future of SCBlocker](https://github.com/Speyedr/socialclub-notification-blocker/discussions/12).**
+**Am făcut un anunț despre [viitorul SCBlocker](https://github.com/Speyedr/socialclub-notification-blocker/discussions/12).**
 
-# [Download v0.1.1](https://github.com/Speyedr/socialclub-notification-blocker/releases/download/v0.1.1/SocialClubBlocker-0.1.1.zip)
+# [Descarcă v0.1.1](https://github.com/Speyedr/socialclub-notification-blocker/releases/download/v0.1.1/SocialClubBlocker-0.1.1.zip)
 
 <img src="/img/SCBlockerTease1.png" alt="Main Menu" height=300 width=562>
 
-## Usage
-1. Download and extract (or build yourself). The direct download link to the latest compiled release is above this message.
-2. Run `SCBlocker.exe` as Administrator.
+## Utilizare
+1. Descarcă și extrage (sau contruiește-l singur). Link-ul direct de descărcare către cea mai nouă versiune compilată este deasupra mesajului acesta.
+2. Rulează `SCBlocker.exe` cu drepturi de Administrator.
 
-    - Alternatively, if you have Python, you can run directly from the interpreter by executing `python main.py` in an elevated command prompt while at the repo directory.
-      - If you use this method then no build is needed.
-4. If the program is running and the network filter is **ON**, notifications should now be blocked and won't reach your client.
-5. Use the keys on your keyboard to navigate the menu.
+    - Alternativ, dacă ai Python, poți sa îl rulezi direct din interpretor executând `python main.py` într-un command prompt elevat cât timp te afli în directoriul repo.
+      - Dacă folosești această metodă atunci nu este nevoie de o versiune.
+4. Dacă programul rulează și filtru-l de internet este **ON**, notificările ar trebui să fie blocate și nu ar trebui să ajungă la clientul tău.
+5. Folosește tastele pentru a naviga meniul.
 
-## Configuration
- - Automatically saves your settings at `settings.ini`. Don't touch it. If you do and the program crashes, delete the file, restart the program, and the program will revert to defaults.
- - If `LOG BLOCKED ACTIVITY` is **ON**, the program will log information about dropped packets in `debug.log`. If you want to watch the log in real-time, you can use something like [mTail](http://ophilipp.free.fr/op_tail.htm).
+## Configurație
+ - Salvează automat setările în `settings.ini`. Nu te atinge de acest fișier. Dacă o faci și program-ul se blochează, șterge fișierul, restartează programul, și acesta va reveni la setările implicite.
+ - Dacă `LOG BLOCKED ACTIVITY` este **ON**, programul va înregistra informația despre packet-uri pierdute în `debug.log`. Dacă dorești sa vizualizezi informația în timp real, poți să utilizezi un program precm [mTail](http://ophilipp.free.fr/op_tail.htm).
 
-## Notices
- - This program does **not** modify the SocialClub Overlay, nor any game that runs with the SocialClub Overlay enabled. In theory, this means that this program does not violate Rockstar's Terms of Service.
- - This program does **not** contain any reverse-engineered code, nor any code that would violate Take-Two's IP or Copyright.
- - Creating this program did **not** require any decompilation nor decryption of any program or service provided by or related to Rockstar Games / Take-Two Interactive.
+## Observații
+ - Acest program **nu** modifică Overlay-ul SocialClub, nici alt program care rulează cu overlay-ul SocialClub. În teorie, acest lucru înseamnă că acest program nu incalcă Termenii Serviciului Rockstar's.
+ - Acest program **nu** conține cod dedus prin inginerie inversă, nici orice alt fel de cod care ar putea incălca IP-ul companiei Take-Two sau copyright-ul ei.
+ - Crearea acestui program **nu** a necesitat decompilația sau decriptarea unui program sau serviciu furnizat sau relatat cu compania Rockstar Games/ Take-Two Interactive.
 
-## Filters
- - This app provides three different filtering heuristics that all target different points in the chain of communication between your client and the SocialClub Overlay.
- - Filter #1 `DROP_INC_80` is the fastest and impacts performance the least but you may be flooded with notifications when the filter is turned off.
- - Filter #2 `DROP_CLIENT_POST` is enabled by default as the end result is probably what most users are looking for.
- - Filter #3 `DROP_LENGTHS` is the most complicated and still under development and therefore not recommended.
+## Filtre
+ - Această aplicație oferă trei algoritmi diferiți care vizează differite puncte în lanțul de comunicări dintre clientul tău și overlay-ul SocialClub.
+ - Filtrul #1 `DROP_INC_80` este cel mai rapid și afectează cel mai puțin performanța dar este posibil să fi surprasolicitat cu notificări când filtrul este oprit.
+ - Filtrul #2 `DROP_CLIENT_POST` este pornit implicit din moment ce acesta indeplinește așteptările minime ale utilizatorului.
+ - Filtrul #3 `DROP_LENGTHS` este cel mai complicat și încă în faza de dezvoltare, astfel acesta nu este recomandat.
 
    <img src="/img/SCBlockerTease3.png" alt="Logging dropped packets" height=120 width=527>
 
-## Bugs / Issues
- - If you encounter a crash or otherwise application-breaking bug, please follow the instructions and [submit an issue here](https://github.com/Speyedr/socialclub-notification-blocker/issues/new/choose).
+## Bugguri / Probleme
+ - Dacă intâmpini o eroare sau un bug care împiedică rularea aplicației, urmează instrucțiunile și [trimite informația aici](https://github.com/Speyedr/socialclub-notification-blocker/issues/new/choose).
 
-## Build Instructions
-**NOTE:** If you are just looking for the download without building yourself, you need to go to [Releases](https://github.com/Speyedr/socialclub-notification-blocker/releases) instead. Or just click the "Download" link near the top of this page.
+## Instrucțiuni pentru compliare
+**NOTĂ:** Dacă cauți doar să descarci program-ul fără al compila, trebuie sa mergi la [Versiuni](https://github.com/Speyedr/socialclub-notification-blocker/releases). Sau doar dă click pe linkul "Descarcă" de la vârful paginii.
 #### Windows
 
-1) Install Python 3 (3.8+ recommended)
-
-    - If this is your first and only Python install, enabling the check-box `Add Python to PATH` will make the next step easier.
-2) Run the following commands in a command prompt:
+1) Instalează Python 3 (3.8+ recomandat)
+    - Dacă aceasta este prima și singura instalare a programului Python, activarea casetei de selectare `Add Python to PATH` va face pasul următor mult mai ușor.
+2) Rulează următoarele comenzi într-un command prompt:
 ```
-:: Make sure to open the command prompt in / navigate to your local repo directory before running these commands.
+:: Asigură-te că ai deschis command prompt-ul în / navighează în directorul local al repo-ului înainte să rulezi comenzile acestea.
 C:\Users\Speyedr\socialclub-notification-blocker> pip install -r requirements.txt
-:: If 'pip' is not recognised (i.e. it wasn't added to PATH) then you will need to provide the absolute path to pip.exe, e.g.
-:: Make sure to check your exact install directory (your version number or bundle may be different)
+:: Dacă 'pip' nu este recunoscut (e.x. nu a fost adăugat în PATH) atunci va trebui sa precizezi locația definitivă pip.exe, e.x.
+:: Asigură-te că ti-ai extras directorul de instalare (numărul versiunii sau al bundle-ului poate fi diferit)
 :: C:\Users\Speyedr\socialclub-notification-blocker> "C:\Program Files\Python 3.8\Scripts\pip.exe" install -r requirements.txt
 C:\Users\Speyedr\socialclub-notification-blocker> python setup.py build
-:: Again, if python is not recognised then you will need to use the absolute path instead:
+:: Incă odată, dacă python nu este recunoscut atunci va trebui sa folosești locația precisă:
 :: C:\Users\Speyedr\socialclub-notification-blocker> "C:\Program Files\Python 3.8\python.exe" setup.py build
 ```
 
@@ -65,21 +64,21 @@ C:\Users\Speyedr\socialclub-notification-blocker> python setup.py build
 - [Wes0617](https://github.com/Wes0617)
 - MrAlvie
 
-### Translators
+### Translatori
 
 - [coeurGG](https://github.com/coeurGG) (French)
+- [TKMachine](https://github.com/TKMachine) (Romanian)
 
-
-## DONATE
+## DONATI
  - PayPal / Card: [ko-fi.com/Speyedr](https://ko-fi.com/speyedr)
  - BTC: `347M8sHnahA98c7MjHGmvsb5pVUJeUcMZ5`
  - ETH: `0xDBAa338137Fc53BA007D7Cf99DD94908e8Fdb6d8`
  - ADA: `addr1qy6xlrpv43xjwhjpdvalccjxm3tf46f5cu7uh5uhexzgwyudcmm3ty8entef6tu3dgf8chn70tc3uql0kkrj0f62mw9sxh29w3`
 
-## LICENSE
- - Use of this program is offered under the [GNU GPLv3.0 License](LICENSE).
+## LICENȚĂ
+ - Acest program este oferit sub licența [GNU GPLv3.0 License](LICENSE).
 
-## CONTRIBUTING
- - If you have found a bug, you can help contribute by [opening an issue](https://github.com/Speyedr/socialclub-notification-blocker/issues/new/choose).
- - Pull requests are currently closed.
- - Under terms of this project's license, you are more than welcome to create your own variations based on my work so long as you retain any and all copyright notices, references, credits, and also use this software's license when releasing any derivative work.
+## CONTRIBUȚIE
+ - Dacă ai descoperit un bug, poți să ajuți prin [deschiderea unui tichet](https://github.com/Speyedr/socialclub-notification-blocker/issues/new/choose).
+ - Cererea de tragere este momentan inchisă.
+ - Sub termenii de licență ai acestui proiect, sunteți bine veniți sa creați variați bazate pe lucrearea aceasta atât timp cât rețineți toate notițele referitoare la copyright, referințe, credit. Folosiți licența acestui software cand lansați alte variați.
