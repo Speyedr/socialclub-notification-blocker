@@ -9,12 +9,20 @@ looking at the code, and I also want to make translation accessible and dynamic 
 without having to modify or update the program or conform to any programming syntax.
 """
 
+from enum import Enum, auto
+
 TRANSLATION_FILE_MARKER = "=== TRANSLATION_BEGIN: ==="
 
 
 class MissingTranslation(Exception):
     """ A translation for this message in the specified language does not exist. """
     pass
+
+
+class MissingTranslationBehaviour(Enum):
+    RAISE_EXCEPTION = auto()
+    DEFAULT_TO_ENGLISH = auto()
+    MISSING_TRANSLATION_TEXT = auto()
 
 
 class Translator:
