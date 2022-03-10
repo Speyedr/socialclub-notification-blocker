@@ -11,7 +11,7 @@ English | [French](translations/FR/README.md) | [Romanian](translations/RO/READM
 <img src="/img/SCBlockerTease1.png" alt="Main Menu" height=300 width=562>
 
 ## Utilizare
-1. Descarcă și extrage (sau contruiește-l singur). Link-ul direct de descărcare către cea mai nouă versiune compilată este deasupra.
+1. Descarcă și extrage (sau compilează singur). Link-ul direct de descărcare către cea mai nouă versiune compilată este deasupra.
 2. Rulează `SCBlocker.exe` cu drepturi de Administrator.
 
     - Alternativ, dacă ai Python, poți sa îl rulezi direct din interpretor executând `python main.py` într-un command prompt elevat cât timp te afli în directoriul repo.
@@ -20,7 +20,7 @@ English | [French](translations/FR/README.md) | [Romanian](translations/RO/READM
 5. Folosește tastele pentru a naviga meniul.
 
 ## Configurație
- - Salvează automat setările în `settings.ini`. Nu te atinge de acest fișier. Dacă o faci și program-ul se blochează, șterge fișierul, restartează programul, și acesta va reveni la setările implicite.
+ - Programul salvează automat setările în `settings.ini`. Nu te atinge de acest fișier. Dacă o faci și programul se blochează, șterge fișierul, restartează programul, și acesta va reveni la setările implicite.
  - Dacă `LOG BLOCKED ACTIVITY` este **ON**, programul va înregistra informația despre packet-uri pierdute în `debug.log`. Dacă dorești sa vizualizezi informația în timp real, poți să utilizezi un program precum [mTail](http://ophilipp.free.fr/op_tail.htm).
 
 ## Observații
@@ -29,7 +29,7 @@ English | [French](translations/FR/README.md) | [Romanian](translations/RO/READM
  - Crearea acestui program **nu** a necesitat decompilarea sau decriptarea unui program sau serviciu furnizat sau relatat cu compania Rockstar Games/ Take-Two Interactive.
 
 ## Filtre
- - Această aplicație oferă trei algoritmi diferiți care vizează differite puncte în lanțul de comunicări dintre clientul tău și overlay-ul SocialClub.
+ - Această aplicație utilizează trei algoritmi diferiți care vizează differite puncte în lanțul de comunicări dintre clientul tău și overlay-ul SocialClub.
  - Filtrul #1 `DROP_INC_80` este cel mai rapid și afectează cel mai puțin performanța dar este posibil să fi surprasolicitat cu notificări când filtrul este oprit.
  - Filtrul #2 `DROP_CLIENT_POST` este pornit implicit din moment ce acesta indeplinește așteptările minime ale utilizatorului.
  - Filtrul #3 `DROP_LENGTHS` este cel mai complicat și încă în faza de dezvoltare, astfel acesta nu este recomandat.
@@ -40,17 +40,17 @@ English | [French](translations/FR/README.md) | [Romanian](translations/RO/READM
  - Dacă intâmpini o eroare sau un bug care împiedică rularea aplicației, urmează instrucțiunile și [trimite informația aici](https://github.com/Speyedr/socialclub-notification-blocker/issues/new/choose).
 
 ## Instrucțiuni pentru compliare
-**NOTĂ:** Dacă cauți doar să descarci program-ul fără al compila, trebuie sa mergi la [Versiuni](https://github.com/Speyedr/socialclub-notification-blocker/releases). Sau doar dă click pe linkul "Descarcă" de la vârful paginii.
+**NOTĂ:** Dacă cauți doar să descarci programul fără al compila, trebuie sa mergi la [Versiuni](https://github.com/Speyedr/socialclub-notification-blocker/releases). Sau doar dă click pe linkul "Descarcă" de la vârful paginii.
 #### Windows
 
 1) Instalează Python 3 (3.8+ recomandat)
     - Dacă aceasta este prima și singura instalare a programului Python, activarea casetei de selectare `Add Python to PATH` va face pasul următor mult mai ușor.
 2) Rulează următoarele comenzi într-un command prompt:
 ```
-:: Asigură-te că ai deschis command prompt-ul în / navighează în directorul local al repo-ului înainte să rulezi comenzile acestea.
+:: Asigură-te că ai deschis command prompt-ul în / navighează în directorul local al repo-ului înainte să rulezi comenzile.
 C:\Users\Speyedr\socialclub-notification-blocker> pip install -r requirements.txt
-:: Dacă 'pip' nu este recunoscut (e.x. nu a fost adăugat în PATH) atunci va trebui sa precizezi locația definitivă pip.exe, e.x.
-:: Asigură-te că ti-ai extras directorul de instalare (numărul versiunii sau al bundle-ului poate fi diferit)
+:: Dacă 'pip' nu este recunoscut (e.x. nu a fost adăugat în PATH) atunci va trebui sa precizezi locația precisă pip.exe, e.x.
+:: Asigură-te că ți-ai extras directorul de instalare (numărul versiunii sau al bundle-ului poate fi diferit)
 :: C:\Users\Speyedr\socialclub-notification-blocker> "C:\Program Files\Python 3.8\Scripts\pip.exe" install -r requirements.txt
 C:\Users\Speyedr\socialclub-notification-blocker> python setup.py build
 :: Incă odată, dacă python nu este recunoscut atunci va trebui sa folosești locația precisă:
