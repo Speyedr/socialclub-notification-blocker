@@ -11,22 +11,22 @@ English | [French](translations/FR/README.md) | [Romanian](translations/RO/READM
 <img src="/img/SCBlockerTease1.png" alt="Main Menu" height=300 width=562>
 
 ## Utilizare
-1. Descarcă și extrage (sau contruiește-l singur). Link-ul direct de descărcare către cea mai nouă versiune compilată este deasupra mesajului acesta.
+1. Descarcă și extrage (sau contruiește-l singur). Link-ul direct de descărcare către cea mai nouă versiune compilată este deasupra.
 2. Rulează `SCBlocker.exe` cu drepturi de Administrator.
 
     - Alternativ, dacă ai Python, poți sa îl rulezi direct din interpretor executând `python main.py` într-un command prompt elevat cât timp te afli în directoriul repo.
-      - Dacă folosești această metodă atunci nu este nevoie de o versiune.
+      - Dacă folosești această metodă atunci nu este nevoie de un build.
 4. Dacă programul rulează și filtru-l de internet este **ON**, notificările ar trebui să fie blocate și nu ar trebui să ajungă la clientul tău.
 5. Folosește tastele pentru a naviga meniul.
 
 ## Configurație
  - Salvează automat setările în `settings.ini`. Nu te atinge de acest fișier. Dacă o faci și program-ul se blochează, șterge fișierul, restartează programul, și acesta va reveni la setările implicite.
- - Dacă `LOG BLOCKED ACTIVITY` este **ON**, programul va înregistra informația despre packet-uri pierdute în `debug.log`. Dacă dorești sa vizualizezi informația în timp real, poți să utilizezi un program precm [mTail](http://ophilipp.free.fr/op_tail.htm).
+ - Dacă `LOG BLOCKED ACTIVITY` este **ON**, programul va înregistra informația despre packet-uri pierdute în `debug.log`. Dacă dorești sa vizualizezi informația în timp real, poți să utilizezi un program precum [mTail](http://ophilipp.free.fr/op_tail.htm).
 
 ## Observații
  - Acest program **nu** modifică Overlay-ul SocialClub, nici alt program care rulează cu overlay-ul SocialClub. În teorie, acest lucru înseamnă că acest program nu incalcă Termenii Serviciului Rockstar's.
  - Acest program **nu** conține cod dedus prin inginerie inversă, nici orice alt fel de cod care ar putea incălca IP-ul companiei Take-Two sau copyright-ul ei.
- - Crearea acestui program **nu** a necesitat decompilația sau decriptarea unui program sau serviciu furnizat sau relatat cu compania Rockstar Games/ Take-Two Interactive.
+ - Crearea acestui program **nu** a necesitat decompilarea sau decriptarea unui program sau serviciu furnizat sau relatat cu compania Rockstar Games/ Take-Two Interactive.
 
 ## Filtre
  - Această aplicație oferă trei algoritmi diferiți care vizează differite puncte în lanțul de comunicări dintre clientul tău și overlay-ul SocialClub.
@@ -36,7 +36,7 @@ English | [French](translations/FR/README.md) | [Romanian](translations/RO/READM
 
    <img src="/img/SCBlockerTease3.png" alt="Logging dropped packets" height=120 width=527>
 
-## Bugguri / Probleme
+## Bug-uri / Probleme
  - Dacă intâmpini o eroare sau un bug care împiedică rularea aplicației, urmează instrucțiunile și [trimite informația aici](https://github.com/Speyedr/socialclub-notification-blocker/issues/new/choose).
 
 ## Instrucțiuni pentru compliare
@@ -81,4 +81,4 @@ C:\Users\Speyedr\socialclub-notification-blocker> python setup.py build
 ## CONTRIBUȚIE
  - Dacă ai descoperit un bug, poți să ajuți prin [deschiderea unui tichet](https://github.com/Speyedr/socialclub-notification-blocker/issues/new/choose).
  - Cererea de tragere este momentan inchisă.
- - Sub termenii de licență ai acestui proiect, sunteți bine veniți sa creați variați bazate pe lucrearea aceasta atât timp cât rețineți toate notițele referitoare la copyright, referințe, credit. Folosiți licența acestui software cand lansați alte variați.
+ - Sub termenii de licență ai acestui proiect, sunteți bine veniți sa creați variați bazate pe lucrearea aceasta atât timp cât rețineți toate notițele referitoare la copyright, referințe, credit. Folosiți licența acestui software când lansați alte variați.
