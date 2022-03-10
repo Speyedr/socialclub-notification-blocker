@@ -1,6 +1,6 @@
 # SocialClub Notification Blocker
 
-English | [French](translations/FR/README.md)
+English | [French](translations/FR/README.md) | [Russian](translations/RU/README.md)
 
 **8th of March, 2022 UPDATE: Rockstar has patched the current spectator exploit.**
 
