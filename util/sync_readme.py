@@ -10,6 +10,7 @@ Author: Daniel "Speyedr" Summer
 
 from re import compile, search
 
+
 class Author:
     """Simple record-keeping class"""
 
@@ -44,7 +45,7 @@ LANGUAGES = {
                 "FR": "French",
                 "RU": "Russian",
                 "RO": "Romanian",
-                "NL": "Dutch"
+                #"NL": "Dutch"
 }
 
 # TRANSLATIONS.items() returns array of tuples where [0] is key (ISO 639-1 code) and [1] is value (name of language).
@@ -52,14 +53,14 @@ LANGUAGES = {
 # i.e. TRANSLATIONS is now a sorted array of tuples, in ascending alphabetical order on the name of the language.
 LANGUAGES = [(key, value) for (key, value) in sorted(LANGUAGES.items(), key=lambda x: x[1])]
 
-LANGUAGE_HEADER_LINE = 2    # 3rd line in the file is where the Language header goes.
+LANGUAGES_HEADER_LINE = 2    # 3rd line in the file is where the Language header goes.
 
-# Matches all characters part of the previous credits section.
-# Find '[-*] \[coeurGG\]`
-#FIND_PREVIOUS_CREDITS =
+# Matches all characters part of the credits section.
+# Find the coeurGG line, keep going until we see the next header in the README file.
+FIND_CREDITS_SECTION = compile(r"[-*] \[coeurGG](?:.|\r|\n)*(?=##)")
 
 
-def get_credits_list(list_of_authors=None):
+def generate_credits_list(list_of_authors=None):
     if list_of_authors is None:
         list_of_authors = TRANSLATION_CREDITS
 
@@ -78,18 +79,32 @@ def generate_url_to_file(linked_readme_language, this_readme_language="EN"):
             "README.md"
 
 
-def get_readme_header_links(this_readme_language="EN", header_separator=" | "):
+def generate_readme_header_links(this_readme_language="EN", header_separator=" | "):
     ret = []
     for (iso_code, name) in LANGUAGES:
-        if name == this_readme_language:
+        if iso_code == this_readme_language:
             ret.append(name)
         else:
-            ret.append(generate_url_to_file(iso_code, this_readme_language))
+            ret.append("["+name+"]("+generate_url_to_file(iso_code, this_readme_language)+")")  # Save name, add link
 
     return header_separator.join(ret)
 
 
 if __name__ == "__main__":
     # Relative links are in the context of the base directory, which is where the English README file is.
-    files = [generate_url_to_file(iso_code, "EN") for (iso_code, name) in LANGUAGES]
-    # Read file, overwrite 3rd line (
+    files = [(generate_url_to_file(iso_code, "EN"), iso_code, name) for (iso_code, name) in LANGUAGES]
+    # Read file, overwrite 3rd line (should maybe do a regex instead to find the target line?)
+    for (file, iso_code, name) in files:
+        print(file)
+        #handle = open("../translations/ES/README.md")
+        handle = open(file, "r", encoding="utf-8")            # read as bytes to prevent python from decoding "invalid bytes"
+        content = handle.read()              # read all of it
+        handle.close()
+        lines = content.splitlines(False)    # split by lines
+        #print(lines)
+        lines[LANGUAGES_HEADER_LINE] = generate_readme_header_links(iso_code)   # generate header and replace
+        print(lines[LANGUAGES_HEADER_LINE])  # test print
+        content = '\n'.join(lines)           # rejoin lines for next scan as it goes across several lines
+        (credits_start, credits_end) = search(FIND_CREDITS_SECTION, content).span()  # find the credits section
+        content = content[:credits_start] + generate_credits_list() + content[credits_end:]  # replace with new credits
+        print(content)                       # another test print
