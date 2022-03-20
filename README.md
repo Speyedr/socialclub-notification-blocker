@@ -1,5 +1,11 @@
 # SocialClub Notification Blocker
 
+English | [French](translations/FR/README.md) | [Romanian](translations/RO/README.md) | [Russian](translations/RU/README.md) | [Spanish](translations/ES/README.md)
+
+**8th of March, 2022 UPDATE: Rockstar has patched the current spectator exploit.**
+
+**I've made an announcement on [the future of SCBlocker](https://github.com/Speyedr/socialclub-notification-blocker/discussions/12).**
+
 # [Download v0.1.1](https://github.com/Speyedr/socialclub-notification-blocker/releases/download/v0.1.1/SocialClubBlocker-0.1.1.zip)
 
 <img src="/img/SCBlockerTease1.png" alt="Main Menu" height=300 width=562>
@@ -59,6 +65,14 @@ C:\Users\Speyedr\socialclub-notification-blocker> python setup.py build
 - [Wes0617](https://github.com/Wes0617)
 - MrAlvie
 
+### Translators
+
+- [coeurGG](https://github.com/coeurGG) (French)
+- [Foxie117](https://github.com/Foxie1171) (Russian)
+- [TKMachine](https://github.com/TKMachine) (Romanian)
+- [Kyeki](https://github.com/Kyekii) (Spanish)
+- [jorgex](https://github.com/jorgex94) (Spanish)
+- [Rav1sh](https://github.com/Rav1sh) (Dutch)
 
 ## DONATE
  - PayPal / Card: [ko-fi.com/Speyedr](https://ko-fi.com/speyedr)
