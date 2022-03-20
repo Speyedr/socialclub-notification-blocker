@@ -79,7 +79,7 @@ def generate_credits_list(list_of_authors=None):
 
     ret = ""
     for author in list_of_authors:
-        ret += author.get_markdown_embed() + "\n"
+        ret += "- " + author.get_markdown_embed() + "\n"
 
     return ret + "\n"
 
@@ -110,7 +110,7 @@ if __name__ == "__main__":
     for (file, iso_code, name) in files:
         print(file)
         #handle = open("../translations/ES/README.md")
-        handle = open(file, "r", encoding="utf-8")            # read as bytes to prevent python from decoding "invalid bytes"
+        handle = open(file, "r", encoding="utf-8")       # read as bytes to prevent python from decoding "invalid bytes"
         content = handle.read()              # read all of it
         handle.close()
         lines = content.splitlines(False)    # split by lines
@@ -120,4 +120,8 @@ if __name__ == "__main__":
         content = '\n'.join(lines)           # rejoin lines for next scan as it goes across several lines
         (credits_start, credits_end) = search(FIND_CREDITS_SECTION, content).span()  # find the credits section
         content = content[:credits_start] + generate_credits_list() + content[credits_end:]  # replace with new credits
-        #print(content)                       # another test print
+        print(content)                       # another test print
+        # TODO: Sanity checks on edited content (e.g. make sure that credits section is found, raise Error if it isn't)
+        handle = open(file, "w", encoding="utf-8")
+        handle.write(content)
+        handle.close()
