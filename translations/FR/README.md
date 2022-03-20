@@ -1,6 +1,6 @@
 # SocialClub Notification Blocker
 
-English | [French](translations/FR/README.md) | [Russian](translations/RU/README.md)
+[English](../../README.md) | French | [Romanian](../RO/README.md) | [Russian](../RU/README.md) | [Spanish](../ES/README.md)
 
 **8 Mars 2022 MISE A JOUR: Rockstar a patch le problème du spectateur mode.**
 
@@ -78,8 +78,12 @@ C:\Users\Speyedr\socialclub-notification-blocker> python setup.py build
 
 ### Traduction / Translation
 
-* [coeurGG](https://github.com/coeurGG) Traduction Française | Note de Coeur : Si vous trouvez la moindre faute ou une mauvaise traduction, n'hésitez pas à me contacter sur le fork que j'ai fait.
-* [Foxie117](https://github.com/Foxie117) (Russian)
+- [coeurGG](https://github.com/coeurGG) (French)
+- [Foxie117](https://github.com/Foxie1171) (Russian)
+- [TKMachine](https://github.com/TKMachine) (Romanian)
+- [Kyeki](https://github.com/Kyekii) (Spanish)
+- [jorgex](https://github.com/jorgex94) (Spanish)
+- [Rav1sh](https://github.com/Rav1sh) (Dutch)
 
 ## DONATE
 
