@@ -3,12 +3,18 @@ Adjusts hyperlinks and text across all readme files so that they "agree" with ea
 
 Rather than updating files individually, this script is updated and re-run per update, which then modifies all readmes.
 
-IMPORTANT: Run this script from the base directory, NOT the util directory. e.g. `python util/sync_readme.py`
-
 Author: Daniel "Speyedr" Summer
 """
 
 from re import compile, search
+from os import scandir, getcwd, chdir  # scandir for getting language codes, getcwd and chdir for working directory fix
+
+UTILITY_FOLDER = "\\" + "util"
+working_dir = getcwd()
+
+# directory hotfix: allows running script from inside util folder
+if working_dir.endswith(UTILITY_FOLDER):
+    chdir(working_dir[:-len(UTILITY_FOLDER)])   # Go up one folder (by trimming the utility folder from absolute path)
 
 
 class Author:
@@ -25,6 +31,8 @@ class Author:
     def get_markdown_embed(self):
         return "[" + self.alias + "](" + self.url + ") (" + self.language + ")"
 
+
+TRANSLATION_FOLDER = "translations"
 
 # Promotional URLs are currently just GitHub links but can be changed to any other link on request.
 TRANSLATION_CREDITS = [
@@ -48,6 +56,11 @@ LANGUAGES = {
                 #"NL": "Dutch"
 }
 
+LANGUAGE_FOLDERS = [file.path for file in scandir(TRANSLATION_FOLDER) if file.is_dir()]
+print(LANGUAGE_FOLDERS)
+
+LANGUAGE_CODES = [directory[len(TRANSLATION_FOLDER)+1:] for directory in LANGUAGE_FOLDERS]  # get the language codes
+
 # TRANSLATIONS.items() returns array of tuples where [0] is key (ISO 639-1 code) and [1] is value (name of language).
 # sorted() sorts an array of items based on a key, which in this case is a function which simply returns [1], the value.
 # i.e. TRANSLATIONS is now a sorted array of tuples, in ascending alphabetical order on the name of the language.
@@ -68,7 +81,7 @@ def generate_credits_list(list_of_authors=None):
     for author in list_of_authors:
         ret += author.get_markdown_embed() + "\n"
 
-    return ret
+    return ret + "\n"
 
 
 def generate_url_to_file(linked_readme_language, this_readme_language="EN"):
@@ -107,4 +120,4 @@ if __name__ == "__main__":
         content = '\n'.join(lines)           # rejoin lines for next scan as it goes across several lines
         (credits_start, credits_end) = search(FIND_CREDITS_SECTION, content).span()  # find the credits section
         content = content[:credits_start] + generate_credits_list() + content[credits_end:]  # replace with new credits
-        print(content)                       # another test print
+        #print(content)                       # another test print
