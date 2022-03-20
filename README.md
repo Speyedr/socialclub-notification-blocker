@@ -69,10 +69,10 @@ C:\Users\Speyedr\socialclub-notification-blocker> python setup.py build
 
 - [coeurGG](https://github.com/coeurGG) (French)
 - [Foxie117](https://github.com/Foxie1171) (Russian)
-- [TKMachine] (Romanian)
-- [Kyeki] (Spanish)
-- [jorgex] (Spanish)
-
+- [TKMachine](https://github.com/TKMachine) (Romanian)
+- [Kyeki](https://github.com/Kyekii) (Spanish)
+- [jorgex](https://github.com/jorgex94) (Spanish)
+- [Rav1sh](https://github.com/Rav1sh) (Dutch)
 
 ## DONATE
  - PayPal / Card: [ko-fi.com/Speyedr](https://ko-fi.com/speyedr)
