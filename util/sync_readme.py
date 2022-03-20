@@ -70,7 +70,7 @@ LANGUAGES_HEADER_LINE = 2    # 3rd line in the file is where the Language header
 
 # Matches all characters part of the credits section.
 # Find the coeurGG line, keep going until we see the next header in the README file.
-FIND_CREDITS_SECTION = compile(r"[-*] \[coeurGG](?:.|\r|\n)*(?=##)")
+FIND_CREDITS_SECTION = compile(r"[-*] \[coeurGG][^#]*(?=#)")
 
 
 def generate_credits_list(list_of_authors=None):
@@ -121,7 +121,7 @@ if __name__ == "__main__":
         (credits_start, credits_end) = search(FIND_CREDITS_SECTION, content).span()  # find the credits section
         print(content[credits_start:credits_end])       # make sure the credits section is matched properly
         content = content[:credits_start] + generate_credits_list() + content[credits_end:]  # replace with new credits
-        #print(content)                       # another test print
+        print(content)                       # another test print
         # TODO: Sanity checks on edited content (e.g. make sure that credits section is found, raise Error if it isn't)
         #handle = open(file, "w", encoding="utf-8")
         #handle.write(content)
