@@ -1,6 +1,6 @@
 # SocialClub Notification Blocker
 
-[English](../../README.md) | [French](../FR/README.md) | Romanian | [Russian](../RU/README.md) | [Spanish](../ES/README.md)
+English | [French](translations/FR/README.md) | [Romanian](translations/RO/README.md)  
 
 **8 Martie, 2022 UPDATE: Rockstar a reparat exploit-ul legat de modul spectator.**
 
@@ -67,11 +67,16 @@ C:\Users\Speyedr\socialclub-notification-blocker> python setup.py build
 ### Translatori
 
 - [coeurGG](https://github.com/coeurGG) (French)
-- [Foxie117](https://github.com/Foxie1171) (Russian)
 - [TKMachine](https://github.com/TKMachine) (Romanian)
-- [Kyeki](https://github.com/Kyekii) (Spanish)
-- [jorgex](https://github.com/jorgex94) (Spanish)
-- [Rav1sh](https://github.com/Rav1sh) (Dutch)
+
+## DONATI
+ - PayPal / Card: [ko-fi.com/Speyedr](https://ko-fi.com/speyedr)
+ - BTC: `347M8sHnahA98c7MjHGmvsb5pVUJeUcMZ5`
+ - ETH: `0xDBAa338137Fc53BA007D7Cf99DD94908e8Fdb6d8`
+ - ADA: `addr1qy6xlrpv43xjwhjpdvalccjxm3tf46f5cu7uh5uhexzgwyudcmm3ty8entef6tu3dgf8chn70tc3uql0kkrj0f62mw9sxh29w3`
+
+## LICENȚĂ
+ - Acest program este oferit sub licența [GNU GPLv3.0 License](LICENSE).
 
 ## CONTRIBUȚIE
  - Dacă ai descoperit un bug, poți să ajuți prin [deschiderea unui tichet](https://github.com/Speyedr/socialclub-notification-blocker/issues/new/choose).

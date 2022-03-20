@@ -119,9 +119,10 @@ if __name__ == "__main__":
         print(lines[LANGUAGES_HEADER_LINE])  # test print
         content = '\n'.join(lines)           # rejoin lines for next scan as it goes across several lines
         (credits_start, credits_end) = search(FIND_CREDITS_SECTION, content).span()  # find the credits section
+        print(content[credits_start:credits_end])       # make sure the credits section is matched properly
         content = content[:credits_start] + generate_credits_list() + content[credits_end:]  # replace with new credits
-        print(content)                       # another test print
+        #print(content)                       # another test print
         # TODO: Sanity checks on edited content (e.g. make sure that credits section is found, raise Error if it isn't)
-        handle = open(file, "w", encoding="utf-8")
-        handle.write(content)
-        handle.close()
+        #handle = open(file, "w", encoding="utf-8")
+        #handle.write(content)
+        #handle.close()

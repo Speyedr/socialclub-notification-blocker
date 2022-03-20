@@ -1,6 +1,6 @@
 # SocialClub Notification Blocker
 
-[English](../../README.md) | French | [Romanian](../RO/README.md) | [Russian](../RU/README.md) | [Spanish](../ES/README.md)
+[English](../../README.md) | French | [Russian](../RU/README.md)
 
 **8 Mars 2022 MISE A JOUR: Rockstar a patch le problème du spectateur mode.**
 
@@ -78,12 +78,19 @@ C:\Users\Speyedr\socialclub-notification-blocker> python setup.py build
 
 ### Traduction / Translation
 
-- [coeurGG](https://github.com/coeurGG) (French)
-- [Foxie117](https://github.com/Foxie1171) (Russian)
-- [TKMachine](https://github.com/TKMachine) (Romanian)
-- [Kyeki](https://github.com/Kyekii) (Spanish)
-- [jorgex](https://github.com/jorgex94) (Spanish)
-- [Rav1sh](https://github.com/Rav1sh) (Dutch)
+* [coeurGG](https://github.com/coeurGG) Traduction Française | Note de Coeur : Si vous trouvez la moindre faute ou une mauvaise traduction, n'hésitez pas à me contacter sur le fork que j'ai fait.
+* [Foxie117](https://github.com/Foxie117) (Russian)
+
+## DONATE
+
+* PayPal / Card: [ko-fi.com/Speyedr](https://ko-fi.com/speyedr)
+* BTC: `347M8sHnahA98c7MjHGmvsb5pVUJeUcMZ5`
+* ETH: `0xDBAa338137Fc53BA007D7Cf99DD94908e8Fdb6d8`
+* ADA: `addr1qy6xlrpv43xjwhjpdvalccjxm3tf46f5cu7uh5uhexzgwyudcmm3ty8entef6tu3dgf8chn70tc3uql0kkrj0f62mw9sxh29w3`
+
+## LICENCE
+
+* L'utilisation de ce programme est offert sous la [Licence GNU GPLv3.0](LICENSE).
 
 ## CONTRIBUTIONS 
 
