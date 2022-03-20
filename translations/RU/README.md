@@ -1,6 +1,6 @@
 # SocialClub Notification Blocker
 
-English | [French](translations/FR/README.md) | [Russian](translations/RU/README.md)
+[English](../../README.md) | [French](../FR/README.md) | [Romanian](../RO/README.md) | Russian | [Spanish](../ES/README.md)
 
 **ОБНОВЛЕНИЕ ОТ 8 МАРТА 2022: Rockstar убрали эксплоит, позволяющий приглашать в режиме наблюдателя.**
 
@@ -68,7 +68,11 @@ C:\Users\Speyedr\socialclub-notification-blocker> python setup.py build
 ### Переводчики
 
 - [coeurGG](https://github.com/coeurGG) (French)
-- [Foxie117](https://github.com/Foxie117) (Russian)
+- [Foxie117](https://github.com/Foxie1171) (Russian)
+- [TKMachine](https://github.com/TKMachine) (Romanian)
+- [Kyeki](https://github.com/Kyekii) (Spanish)
+- [jorgex](https://github.com/jorgex94) (Spanish)
+- [Rav1sh](https://github.com/Rav1sh) (Dutch)
 
 ## Пожертвования
  - PayPal / Карта: [ko-fi.com/Speyedr](https://ko-fi.com/speyedr)

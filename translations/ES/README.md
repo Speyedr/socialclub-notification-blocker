@@ -1,6 +1,6 @@
 # SocialClub Notification Blocker
 
-English | [French](translations/FR/README.md)
+[English](../../README.md) | [French](../FR/README.md) | [Romanian](../RO/README.md) | [Russian](../RU/README.md) | Spanish
 
 **8 de marzo de 2022 ACTUALIZACION: Rockstar ha corregido el exploit del espectador.**
 
@@ -69,6 +69,10 @@ C:\Users\Speyedr\socialclub-notification-blocker> python setup.py build
 
 - [coeurGG](https://github.com/coeurGG) (French)
 - [Foxie117](https://github.com/Foxie1171) (Russian)
+- [TKMachine](https://github.com/TKMachine) (Romanian)
+- [Kyeki](https://github.com/Kyekii) (Spanish)
+- [jorgex](https://github.com/jorgex94) (Spanish)
+- [Rav1sh](https://github.com/Rav1sh) (Dutch)
 
 ## Donativos
  - PayPal / Card: [ko-fi.com/Speyedr](https://ko-fi.com/speyedr)
