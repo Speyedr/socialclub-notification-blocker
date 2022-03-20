@@ -53,7 +53,7 @@ LANGUAGES = {
                 "FR": "French",
                 "RU": "Russian",
                 "RO": "Romanian",
-                #"NL": "Dutch"
+                "NL": "Dutch"
 }
 
 LANGUAGE_FOLDERS = [file.path for file in scandir(TRANSLATION_FOLDER) if file.is_dir()]
