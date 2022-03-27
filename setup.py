@@ -17,7 +17,7 @@ build_options = dict(packages=[], includes=['pydivert'],
                      zip_exclude_packages=zip_exclude_packages, silent=True)
 executables = [
     Executable('main.py', targetName="SCBlocker.exe", icon="icon.ico",
-               copyright='Copyright (C) 2022 Daniel Summer')
+               copyright='Copyright (C) 2022 Daniel Summer', uac_admin=True)
 ]
 
 version = VERSION
@@ -30,8 +30,8 @@ if os.path.exists(build_path):
 if not os.path.exists('build/exe'):
     os.makedirs('build/exe')
 
-if os.path.isfile('build/exe/guardian-{}.zip'.format(version)):
-    os.remove('build/exe/guardian-{}.zip'.format(version))
+if os.path.isfile('build/exe/SocialClubBlocker-{}.zip'.format(version)):
+    os.remove('build/exe/SocialClubBlocker-{}.zip'.format(version))
 
 
 setup(name='SocialClub Notification Blocker',
