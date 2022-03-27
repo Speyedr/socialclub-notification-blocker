@@ -84,14 +84,18 @@ class Translator:
         handle = None
         try:
             handle = open("translations\\" + language + "\\" + self.location + ".txt")
-        except FileNotFoundError:
-            raise MissingTranslation("Could not find a '" + language + "' translation for this message: "
-                                     "File does not exist / could not be found.")
+        except (FileNotFoundError, PermissionError) as e:
+            if isinstance(e, FileNotFoundError):
+                raise MissingTranslation("Could not load a '" + language + "' translation for this message: "
+                                         "File does not exist / could not be found.")
+            if isinstance(e, PermissionError):
+                raise MissingTranslation("Could not load a '" + language + "' translation for this message: "
+                                         "Access is denied.")
         # Not sure if there's other I/O errors I should be handling
         assert handle is not None, "File did not open successfully but exception was not caught."
 
         lines = handle.readlines()
-        # Find where translation begins (=== TRANSLATION_BEGIN: ===)
+        # Find where translation begins (# TRANSLATION_BEGIN:)
         i = 0
         while i < len(lines):
             if lines[i].find(TRANSLATION_FILE_MARKER) != -1:
