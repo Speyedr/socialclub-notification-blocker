@@ -5,7 +5,7 @@ Author: Daniel "Speyedr" Summer
 """
 
 from logger import Logger                           # :peepolove:
-from psutil import Process, process_iter
+from psutil import Process, process_iter, AccessDenied, NoSuchProcess
 from pygtrie import StringTrie, CharTrie
 from re import compile, match, search, MULTILINE
 
@@ -36,6 +36,10 @@ WINDIVERT_LIBRARIES = [
                        #"windivert32",  # Clever usage of CharTrie means we don't need to check 32 or 64
                        #"windivert64"
                       ]
+
+KNOWN_GOOD_PROCESSES = [
+                        "guardian"      # Guardian's filtering methods do not conflict with SCBlocker
+                       ]
 
 STRING_SEPARATOR = "\x00"      # process names can't have a null byte in them so will use as separator
 PROCESS_SUFFIX = ".exe"        # all process names end in .exe
@@ -72,12 +76,26 @@ def construct_module_trie(process_id):
     :param process_id:
     :return: Trie containing all loaded modules in a process.
     """
-    proc = Process(process_id)
     trie = CharTrie()
-    for dll in proc.memory_maps():
-        filename = search(FILE_GET_NAME, dll.path)
-        if filename:
-            trie[filename.group().lower()] = dll.rss
+    # FIXME: There seems to be poor performance here somewhere. Investigate the performance of the regex search.
+    #  Should maybe switch to a different method of getting the file name, like str.split("\\")?
+
+    try:
+        proc = Process(process_id)
+    except (AccessDenied, NoSuchProcess) as e:
+        Logger.static_add_message("WARNING: Could not open process ID " + str(process_id) +
+                                  "\nReason: " + str(e))
+        return trie
+    # Otherwise, we were able to open the process.
+
+    try:
+        for dll in proc.memory_maps():
+            filename = search(FILE_GET_NAME, dll.path)
+            if filename:
+                trie[filename.group().lower()] = dll.rss
+    except (AccessDenied, NoSuchProcess) as e:     # Could not open process
+        Logger.static_add_message("WARNING: Could not get modules for process ID " + str(process_id) +
+                                  "\nReason: " + str(e))
 
     return trie
 
@@ -117,4 +135,12 @@ def get_conflicts(process_trie=None, process_conflicts=None):
 
     Logger.static_add_message("Conflicts found: " + str(conflicts))
     return conflicts
+
+
+if __name__ == "__main__":
+    proc = get_all_process_names()
+    print(proc)
+    for pname, pid in proc:
+        trie = construct_module_trie(pid)
+        print(trie)
 
