@@ -1,6 +1,8 @@
 from colorama import init, Fore, Back   # for colouring boolean options
 init()  # initializes colorama library
 
+DEFAULT_LANGUAGE = "EN"
+
 
 def toggle_option(name):
     # There's absolutely a better way to do this but I can't be bothered coming up with it at the moment lol
@@ -33,6 +35,7 @@ class MenuNames:
     DROP_CLIENT_POST = "DROP CLIENT POST [RECOMMENDED]:"
     DROP_LENGTHS = "DROP LENGTHS [EXPERIMENTAL]:"
     FILTER_SETTINGS_GO_BACK = "Go back"
+    CHANGE_LANGUAGE = "CHANGE DISPLAY LANGUAGE"
 
 
 class Menu:
@@ -45,6 +48,8 @@ class Menu:
     IS_DROP_LENGTH = False
 
     DROP_OPTIONS_MUTUALLY_EXCLUSIVE = True  # Can't have more than one drop option enabled at a time.
+
+    DISPLAY_LANGUAGE = DEFAULT_LANGUAGE
 
     ERR_MSG_NO_FILTERS = "\n ERROR: Attempted to start the network filter but "+\
                          Back.RED+"no filters are enabled"+Back.RESET+".\n        "+\
@@ -66,6 +71,9 @@ class Menu:
                           "desc": "Log information to the debug file about what was blocked and why.",
                           "action": toggle_option},
                     "4": {"value": "",
+                          "name": MenuNames.CHANGE_LANGUAGE,
+                          "desc": "Change the language of the menus."},
+                    "5": {"value": "",
                           "name": MenuNames.OPEN_DONATION_URL,
                           "desc": "If this program helped you, donating would be a great way of saying thanks."},
                     "x": {"value": "",
@@ -118,6 +126,11 @@ class Menu:
         Menu.FILTER_OPTIONS["3"]["value"] = Menu.IS_DROP_LENGTH
 
     @staticmethod
+    def generate_language_menu():
+        # Check the translations folder, get sub-folders, check Author's file.
+        return ""
+
+    @staticmethod
     def filter_instructions():
         return "Press 1 to "+(Fore.RED+"Stop" if Menu.IS_FILTER_RUNNING else Fore.CYAN+"Start")+Fore.RESET\
                +" the network filter."
@@ -130,7 +143,7 @@ class Menu:
     @staticmethod
     def get_options():
         return Menu.IS_FILTER_RUNNING, Menu.IS_LOGGING, Menu.IS_DROP_INC_80, Menu.IS_DROP_CLIENT_POST, \
-               Menu.IS_DROP_LENGTH
+               Menu.IS_DROP_LENGTH, Menu.DISPLAY_LANGUAGE
 
     @staticmethod
     def set_options(options):
@@ -141,6 +154,7 @@ class Menu:
         Menu.IS_DROP_INC_80 = options[2]
         Menu.IS_DROP_CLIENT_POST = options[3]
         Menu.IS_DROP_LENGTH = options[4]
+        Menu.DISPLAY_LANGUAGE = options[5]
 
     @staticmethod
     def emphasize():
