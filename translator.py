@@ -10,8 +10,12 @@ without having to modify or update the program or conform to any programming syn
 """
 
 from enum import Enum, auto
+from logger import Logger
 
-TRANSLATION_FILE_MARKER = "=== TRANSLATION_BEGIN: ==="
+TRANSLATION_FILE_MARKER = "# TRANSLATION_BEGIN:"
+NO_TRANSLATION = "[Missing Translation]"
+
+from main import LOG_FILE
 
 
 class MissingTranslation(Exception):
@@ -28,18 +32,23 @@ class MissingTranslationBehaviour(Enum):
 class Translator:
     """
     The Translator class allows messages to be constructed using a specific language, and then "swapped out" by loading
-    an alternative message from a file located at `language`\\`location`.txt. For example, a Translator object could be
+    an alternative message from a file located at `translations\\[LANGUAGE]\\location`.txt.
+    For example, a Translator object could be
     initialized as: `Translator("This is a test message", "TEST_MESSAGE", "EN")`.
     Returning the message in the current language that is set is done with .get_message().
     Alternatively, this can be temporarily overridden by supplying .get_message() with a parameter for the language.
-    The method .set_language("FR") can be called, at which point the file at `FR\\TEST_MESSAGE.TXT` is read, and
+    The method .set_language("FR") can be called, at which point the file at
+    `translations\\FR\\TEST_MESSAGE.TXT` is read, and
     any further calls to .get_message() will default to the French translation.
     """
 
-    def __init__(self, message, location, language="EN"):
+    def __init__(self, message, location, language="EN",
+                 no_translation=MissingTranslationBehaviour.MISSING_TRANSLATION_TEXT):
         self.translations = {language: message}
         self.location = location
         self.current_language = language
+        self.error_behaviour = None
+        self.set_missing_translation_behaviour(no_translation)
 
     def get_message(self, language=None):
         if language is None:
@@ -48,8 +57,17 @@ class Translator:
         try:
             return self.translations[language]      # Return message in the specified language.
         except KeyError:
-            self.load_message(language)             # If no translation, attempt to load one from file.
-            #raise MissingTranslation("A '" + language + "' translation for this message does not exist.")
+            try:
+                return self.load_message(language)             # If no translation, attempt to load one from file.
+            except MissingTranslation as e:
+                Logger.static_add_message(str(e), LOG_FILE)
+                if self.error_behaviour == MissingTranslationBehaviour.RAISE_EXCEPTION:
+                    raise MissingTranslation("A '" + language + "' translation for this message does not exist.")
+                if self.error_behaviour == MissingTranslationBehaviour.DEFAULT_TO_ENGLISH:
+                    return self.get_message("EN")
+                if self.error_behaviour == MissingTranslationBehaviour.MISSING_TRANSLATION_TEXT:
+                    return NO_TRANSLATION
+                assert False, "Undefined Missing Translation Behaviour: " + str(self.error_behaviour)
 
     def set_language(self, language):
         """
@@ -65,7 +83,7 @@ class Translator:
     def load_message(self, language):
         handle = None
         try:
-            handle = open(language + "\\" + self.location + ".txt")
+            handle = open("translations\\" + language + "\\" + self.location + ".txt")
         except FileNotFoundError:
             raise MissingTranslation("Could not find a '" + language + "' translation for this message: "
                                      "File does not exist / could not be found.")
@@ -96,3 +114,20 @@ class Translator:
 
     def save_translation(self, message, language):
         self.translations[language] = message
+
+    def set_missing_translation_behaviour(self, behaviour):
+        if not isinstance(behaviour, MissingTranslationBehaviour):
+            raise ValueError("Unsupported translation behaviour: " + str(behaviour))
+        self.error_behaviour = behaviour
+
+
+if __name__ == "__main__":
+    tr = Translator("This is a test message.", "tr_test", "EN", MissingTranslationBehaviour.MISSING_TRANSLATION_TEXT)
+    print(tr.get_message())
+    print(tr.translations)
+    print(tr.get_message("ES"))
+    print(tr.translations)
+    tr.set_language("ES")
+    print(tr.get_message("EN"))
+    print(tr.get_message(""))   # Error handling test
+    print(tr.translations)      # Make sure that the erroneous behaviour didn't affect internal structure.

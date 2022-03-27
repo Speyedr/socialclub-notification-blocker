@@ -1,0 +1,11 @@
+# The following is a test of the translation feature.
+
+# Please enter the translation of the message specified below the TRANSLATION_BEGIN text.
+# DO NOT edit TRANSLATION_BEGIN. Only enter text below that line. Any text entered below
+# TRANSLATION_BEGIN will be considered to be the translation of the specified content.
+
+# The content to be translated is:
+# This is a test message.
+
+# TRANSLATION_BEGIN:
+Este es un mensaje de prueba.
