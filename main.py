@@ -109,6 +109,12 @@ def main():
             previous_menu_state = current_menu_state
             if Menu.IS_FILTER_RUNNING:                          # Filter should be running
                 settings = get_filter_settings()
+
+                if FilterSettings.SERVER_IP is None and \
+                    (settings.flags & (FilterFlags.DROP_CLIENT_POST | FilterFlags.DROP_LENGTH)):
+                    logger.add_message("WARN: User is running network filter without a resolved SERVER_IP.")
+                    print(Menu.WRN_MSG_NO_SERVER_IP)
+
                 if settings.flags == FilterFlags(False):        # No filters are being applied
                     logger.add_message("WARN: User attempted to start network filter with no filters applied.")
                     print(Menu.ERR_MSG_NO_FILTERS)              # Tell the user something's wrong

@@ -56,6 +56,10 @@ class Menu:
                          Fore.LIGHTCYAN_EX+"Press 2"+Fore.RESET+" to open the filter settings and "+\
                          Fore.LIGHTCYAN_EX+"enable at least one"+Fore.RESET+" of them!"
 
+    WRN_MSG_NO_SERVER_IP = "\n WARNING: Server IP could not be resolved, using backup filter.\n"+\
+                           "Performance may be sub-optimal. Restart the filter to try again,\n"+\
+                           "or Press 2 to open the filter settings and select DROP_INC_80."
+
     """
     Key is text to change option.
     """
