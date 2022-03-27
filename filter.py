@@ -62,6 +62,7 @@ def get_server_ip_safe():
     try:
         return gethostbyname(FilterSettings.CLIENT_POST_HOST)
     except gaierror:
+        Logger.static_add_message("WARNING: Could not resolve " + FilterSettings.CLIENT_POST_HOST)
         return None
 
 
@@ -115,7 +116,6 @@ class FilterSettings:
         if (self.flags & FilterFlags.DROP_LENGTH) and packet.is_inbound \
                 and packet.tcp is not None and packet.src_addr == FilterSettings.SERVER_IP:
             content_length = search(FilterSettings.GET_RESPONSE_LENGTH, packet.payload)
-            #print(content_length)
             if content_length and self.drop_lengths.bounds(int(content_length.group())):
                 if self.logger is not None:
                     self.logger.put((encodebytes(packet.raw), packet.interface, packet.direction,
