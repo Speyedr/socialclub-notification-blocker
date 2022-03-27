@@ -16,7 +16,7 @@ build_options = dict(packages=[], includes=['pydivert'],
                      replace_paths=[("*", "")], optimize=2, zip_include_packages="*",
                      zip_exclude_packages=zip_exclude_packages, silent=True)
 executables = [
-    Executable('main.py', targetName="SCBlocker.exe", icon="icon.ico",
+    Executable('main.py', target_name="SCBlocker.exe", icon="icon.ico",
                copyright='Copyright (C) 2022 Daniel Summer', uac_admin=True)
 ]
 
