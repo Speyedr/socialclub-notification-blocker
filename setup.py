@@ -12,7 +12,7 @@ import shutil
 
 zip_exclude_packages = ['pydivert']
 
-build_options = dict(packages=[], includes=['pydivert'],
+build_options = dict(packages=[], includes=['pydivert'], excludes=['tkinter'],
                      replace_paths=[("*", "")], optimize=2, zip_include_packages="*",
                      zip_exclude_packages=zip_exclude_packages, silent=True)
 executables = [
