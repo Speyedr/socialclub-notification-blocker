@@ -1,6 +1,6 @@
 # SocialClub Notification Blocker
 
-[English](../../README.md) | French | [Romanian](../RO/README.md) | [Russian](../RU/README.md) | [Spanish](../ES/README.md)
+[Dutch](../NL/README.md) | [English](../../README.md) | French | [Romanian](../RO/README.md) | [Russian](../RU/README.md) | [Spanish](../ES/README.md)
 
 **8 Mars 2022 MISE A JOUR: Rockstar a patch le problème du spectateur mode.**
 
@@ -36,9 +36,9 @@
 ## Filtres
 
 * Cette application fournit trois différents filtres heuristiques qui ciblent les différents points dans la chaine de communication entre votre client et l'overlay SocialClub.
-* Filtre #1 `DROP_INC_80` est le plus rapide et impacte les performances le moins, mais vous risquez d'être inondés de notifications lorsque le filtre n'est pas activé.
-* Filtre #2 `DROP_CLIENT_POST` est activé par défaut, et c'est, probablement ce que la plupart des utilisateurs recherchent.
-* Filtre #3 `DROP_LENGTHS` est le plus compliqué, et encore en développement, pour le moment, il n'est pas recommandé.
+* Filtre #&#x2060;1 `DROP_INC_80` est le plus rapide et impacte les performances le moins, mais vous risquez d'être inondés de notifications lorsque le filtre n'est pas activé.
+* Filtre #&#x2060;2 `DROP_CLIENT_POST` est activé par défaut, et c'est, probablement ce que la plupart des utilisateurs recherchent.
+* Filtre #&#x2060;3 `DROP_LENGTHS` est le plus compliqué, et encore en développement, pour le moment, il n'est pas recommandé.
 
   <img src="/img/SCBlockerTease3.png" alt="Logging dropped packets" height=120 width=527>
 

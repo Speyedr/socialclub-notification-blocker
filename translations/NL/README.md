@@ -1,6 +1,6 @@
 # SocialClub Notification Blocker
 
-English | [French](translations/FR/README.md) | [Russian](translations/RU/README.md) | [Dutch](translations/NL/README.md)
+Dutch | [English](../../README.md) | [French](../FR/README.md) | [Romanian](../RO/README.md) | [Russian](../RU/README.md) | [Spanish](../ES/README.md)
 
 **8 maart 2022 UPDATE: Rockstar heeft de huidige toeschouwers-exploit gepatcht.**
 
@@ -33,9 +33,9 @@ English | [French](translations/FR/README.md) | [Russian](translations/RU/README
 
 ## Filters
  - Deze app biedt drie verschillende filterheuristieken die allemaal gericht zijn op verschillende punten in de communicatieketen tussen jouw client en de SocialClub-overlay.
- - Filter #1 `DROP_INC_80` is de snelste en heeft de minste invloed op de prestaties, maar je kunt worden overspoeld met meldingen wanneer het filter is uitgeschakeld.
- - Filter #2 `DROP_CLIENT_POST` is standaard ingeschakeld omdat het eindresultaat waarschijnlijk is waar de meeste gebruikers naar op zoek zijn.
- - Filter #3 `DROP_LENGTHS` is de meest gecompliceerde en nog in ontwikkeling en daarom niet aanbevolen.
+ - Filter #&#x2060;1 `DROP_INC_80` is de snelste en heeft de minste invloed op de prestaties, maar je kunt worden overspoeld met meldingen wanneer het filter is uitgeschakeld.
+ - Filter #&#x2060;2 `DROP_CLIENT_POST` is standaard ingeschakeld omdat het eindresultaat waarschijnlijk is waar de meeste gebruikers naar op zoek zijn.
+ - Filter #&#x2060;3 `DROP_LENGTHS` is de meest gecompliceerde en nog in ontwikkeling en daarom niet aanbevolen.
 
    <img src="/img/SCBlockerTease3.png" alt="Logging dropped packets" height=120 width=527>
 
@@ -73,6 +73,9 @@ C:\Users\Speyedr\socialclub-notification-blocker> python setup.py build
 
 - [coeurGG](https://github.com/coeurGG) (French)
 - [Foxie117](https://github.com/Foxie1171) (Russian)
+- [TKMachine](https://github.com/TKMachine) (Romanian)
+- [Kyeki](https://github.com/Kyekii) (Spanish)
+- [jorgex](https://github.com/jorgex94) (Spanish)
 - [Rav1sh](https://github.com/Rav1sh) (Dutch)
 
 ## DONEER
@@ -88,4 +91,3 @@ C:\Users\Speyedr\socialclub-notification-blocker> python setup.py build
  - Als je een bug hebt gevonden, kun je  bijdragen door: [een probleem te openen](https://github.com/Speyedr/socialclub-notification-blocker/issues/new/choose).
  - Pull-verzoeken zijn momenteel gesloten.
  - Onder de voorwaarden van de licentie van dit project bent u meer dan welkom om uw eigen variaties te maken gebaseerd op mijn werk, zolang u alle copyrightvermeldingen, referenties, credits behoudt en ook de licentie van deze software gebruikt bij het vrijgeven van afgeleid werk.
-

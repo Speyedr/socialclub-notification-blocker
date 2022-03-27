@@ -6,7 +6,7 @@ Rather than updating files individually, this script is updated and re-run per u
 Author: Daniel "Speyedr" Summer
 """
 
-from re import compile, search
+from re import compile, search, sub
 from os import scandir, getcwd, chdir  # scandir for getting language codes, getcwd and chdir for working directory fix
 
 UTILITY_FOLDER = "\\" + "util"
@@ -53,7 +53,7 @@ LANGUAGES = {
                 "FR": "French",
                 "RU": "Russian",
                 "RO": "Romanian",
-                #"NL": "Dutch"
+                "NL": "Dutch"
 }
 
 LANGUAGE_FOLDERS = [file.path for file in scandir(TRANSLATION_FOLDER) if file.is_dir()]
@@ -71,6 +71,9 @@ LANGUAGES_HEADER_LINE = 2    # 3rd line in the file is where the Language header
 # Matches all characters part of the credits section.
 # Find the coeurGG line, keep going until we see the next header in the README file.
 FIND_CREDITS_SECTION = compile(r"[-*] \[coeurGG][^#]*(?=#)")
+
+FIND_POUND_NOTATION = compile(r"(\s)#(\d+)(\s)")
+FIX_POUND_NOTATION = r"\1#&#x2060;\2\3"
 
 
 def generate_credits_list(list_of_authors=None):
@@ -103,14 +106,17 @@ def generate_readme_header_links(this_readme_language="EN", header_separator=" |
     return header_separator.join(ret)
 
 
+def pound_notation_fix(string):
+    return sub(FIND_POUND_NOTATION, FIX_POUND_NOTATION, string)
+
+
 if __name__ == "__main__":
     # Relative links are in the context of the base directory, which is where the English README file is.
     files = [(generate_url_to_file(iso_code, "EN"), iso_code, name) for (iso_code, name) in LANGUAGES]
     # Read file, overwrite 3rd line (should maybe do a regex instead to find the target line?)
     for (file, iso_code, name) in files:
         print(file)
-        #handle = open("../translations/ES/README.md")
-        handle = open(file, "r", encoding="utf-8")       # read as bytes to prevent python from decoding "invalid bytes"
+        handle = open(file, "r", encoding="utf-8")      # read as utf-8 to prevent invalid bytes (we're not using ascii)
         content = handle.read()              # read all of it
         handle.close()
         lines = content.splitlines(False)    # split by lines
@@ -121,6 +127,7 @@ if __name__ == "__main__":
         (credits_start, credits_end) = search(FIND_CREDITS_SECTION, content).span()  # find the credits section
         print(content[credits_start:credits_end])       # make sure the credits section is matched properly
         content = content[:credits_start] + generate_credits_list() + content[credits_end:]  # replace with new credits
+        content = pound_notation_fix(content)   # prevent GitHub from generating weird URLs for #1, #2, #3, etc.
         print(content)                       # another test print
         # TODO: Sanity checks on edited content (e.g. make sure that credits section is found, raise Error if it isn't)
         handle = open(file, "w", encoding="utf-8")

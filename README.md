@@ -1,6 +1,6 @@
 # SocialClub Notification Blocker
 
-English | [French](translations/FR/README.md) | [Romanian](translations/RO/README.md) | [Russian](translations/RU/README.md) | [Spanish](translations/ES/README.md)
+[Dutch](translations/NL/README.md) | English | [French](translations/FR/README.md) | [Romanian](translations/RO/README.md) | [Russian](translations/RU/README.md) | [Spanish](translations/ES/README.md)
 
 **8th of March, 2022 UPDATE: Rockstar has patched the current spectator exploit.**
 
@@ -30,9 +30,9 @@ English | [French](translations/FR/README.md) | [Romanian](translations/RO/READM
 
 ## Filters
  - This app provides three different filtering heuristics that all target different points in the chain of communication between your client and the SocialClub Overlay.
- - Filter #1 `DROP_INC_80` is the fastest and impacts performance the least but you may be flooded with notifications when the filter is turned off.
- - Filter #2 `DROP_CLIENT_POST` is enabled by default as the end result is probably what most users are looking for.
- - Filter #3 `DROP_LENGTHS` is the most complicated and still under development and therefore not recommended.
+ - Filter #&#x2060;1 `DROP_INC_80` is the fastest and impacts performance the least but you may be flooded with notifications when the filter is turned off.
+ - Filter #&#x2060;2 `DROP_CLIENT_POST` is enabled by default as the end result is probably what most users are looking for.
+ - Filter #&#x2060;3 `DROP_LENGTHS` is the most complicated and still under development and therefore not recommended.
 
    <img src="/img/SCBlockerTease3.png" alt="Logging dropped packets" height=120 width=527>
 
