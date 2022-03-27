@@ -58,11 +58,11 @@ class DropLengthSettings:
         self.verify_offsets(self.min_length, self.max_length)
 
 
-def get_server_ip_safe():
+def gethostbyname_safe(name):
     try:
-        return gethostbyname(FilterSettings.CLIENT_POST_HOST)
+        return gethostbyname(name)
     except gaierror:
-        Logger.static_add_message("WARNING: Could not resolve " + FilterSettings.CLIENT_POST_HOST)
+        Logger.static_add_message("WARNING: Could not resolve " + name)
         return None
 
 
@@ -75,7 +75,7 @@ class FilterSettings:
                     "Host: " + CLIENT_POST_HOST]                                  # Each element is a line of the header
     CLIENT_LINE_SEP = '\r\n'                                                      # The line separator
     MATCH_HEADER = compile(bytes('^'+CLIENT_LINE_SEP.join(CLIENT_LINES), 'utf-8'))# Used to match the entire header
-    SERVER_IP = get_server_ip_safe()                                   # The IP address of the website
+    SERVER_IP = gethostbyname_safe(CLIENT_POST_HOST)                              # The IP address of the website
     SERVER_RESPONSE_LENGTH_ATTR = "Content-Length: "        # The attribute that claims the length of content returned.
     GET_RESPONSE_LENGTH = compile(
         bytes("(?<=^"+SERVER_RESPONSE_LENGTH_ATTR+r")\d+", 'utf-8'), MULTILINE)   # Get the length of content returned.
@@ -94,8 +94,9 @@ class FilterSettings:
         else:
             Logger.static_add_message("Logger not supplied to FilterSettings.", LOG_FILE)
 
+        # If we couldn't resolve the server IP last time, try again.
         if FilterSettings.SERVER_IP is None:
-            FilterSettings.SERVER_IP = get_server_ip_safe()
+            FilterSettings.SERVER_IP = gethostbyname_safe(FilterSettings.SERVER_IP)
 
     def should_allow(self, packet):
         if (self.flags & FilterFlags.DROP_INC_80) and packet.is_inbound and packet.udp is not None \
