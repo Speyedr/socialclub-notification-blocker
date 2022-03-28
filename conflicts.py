@@ -10,6 +10,7 @@ from psutil import Process, process_iter, AccessDenied, NoSuchProcess
 from pygtrie import StringTrie, CharTrie
 from re import compile, match, search, MULTILINE
 from multiprocessing import Queue, freeze_support
+from time import perf_counter
 
 # From https://www.reqrypt.org/windivert.html > Projects
 POSSIBLE_CONFLICTS = [
@@ -52,6 +53,8 @@ logger_queue = Queue()
 
 # Matches the name of a file from a directory path
 FILE_GET_NAME = compile("(?<=\\\\)[^\\\\]+$")    # Backslash plague makes me want to cry
+def file_get_name(string):
+    return string.rpartition("\\")[2]   # 3rd element is everything right of the first backslash
 
 
 def get_all_process_names():
@@ -79,27 +82,49 @@ def construct_module_trie(process_id):
     :param process_id:
     :return: Trie containing all loaded modules in a process.
     """
+    perf = []
     trie = CharTrie()
     # FIXME: There seems to be poor performance here somewhere. Investigate the performance of the regex search.
     #  Should maybe switch to a different method of getting the file name, like str.split("\\")?
-
+    open_proc_start = perf_counter()
+    log_start = 0
+    log_finish = 0
+    open_dll_start = 0
+    open_dll_finish = 0
+    regex_start = 0
+    regex_finish = 0
     try:
         proc = Process(process_id)
+        open_proc_finish = perf_counter()
     except (AccessDenied, NoSuchProcess) as e:
+        log_start = perf_counter()
         logger_queue.put("WARNING: Could not open process ID " + str(process_id) +
                                   "\nReason: " + str(e))
+        log_finish = perf_counter()
+        open_proc_finish = perf_counter()
+        perf.extend([open_proc_finish - open_proc_start, log_finish - log_start])
+        logger_queue.put(perf)
         return trie
     # Otherwise, we were able to open the process.
 
     try:
+        open_dll_start = perf_counter()
         for dll in proc.memory_maps():
             filename = search(FILE_GET_NAME, dll.path)
             if filename:
                 trie[filename.group().lower()] = dll.rss
+        open_dll_finish = perf_counter()
     except (AccessDenied, NoSuchProcess) as e:     # Could not open process
+        log_start = perf_counter()
+        open_dll_start = 0
         logger_queue.put("WARNING: Could not get modules for process ID " + str(process_id) +
                                   "\nReason: " + str(e))
+        log_finish = perf_counter()
 
+    #open_proc_finish = perf_counter()
+    perf.extend([open_proc_finish - open_proc_start, log_finish - log_start,
+                 open_dll_finish - open_dll_start])
+    logger_queue.put(perf)
     return trie
 
 
@@ -142,11 +167,20 @@ def get_conflicts(process_trie=None, process_conflicts=None):
 
 if __name__ == "__main__":
     #freeze_support()
+    start = perf_counter()
     logger = Logger(logger_queue, LOG_FILE)
     logger.start()
+    one = perf_counter()
     proc = get_all_process_names()
-    print(proc)
+    print(perf_counter() - one)
+    #print(proc)
     for pname, pid in proc:
         trie = construct_module_trie(pid)
-        print(trie)
+        #print(trie)
+    finish = perf_counter()
+    print(finish - start)
+    logger_queue.put(finish - start)
+
+    # get_all_process_names(): 0.54799 (seconds?)
+    # total: 1.6638957 (seconds?)
 

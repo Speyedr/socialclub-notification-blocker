@@ -42,11 +42,12 @@ class Logger:
         # uses memoryview types which are great but you can't pickle them (i.e. can't pipe them to different processes).
         try:
             item = self.queue.get(blocking, timeout)
+            #print(item)
             try:
                 (packet_base64, interface, direction, allowed, reason) = item
                 packet = Packet(decodebytes(packet_base64), interface, direction)  # Decode the and recreate the packet.
                 self.add_message(Logger.construct_packet_debug_info(packet, allowed, reason))
-            except ValueError:
+            except (ValueError, TypeError):
                 self.add_message(str(item))  # ghetto fix for also allowing strings
         except queue.Empty:
             pass
