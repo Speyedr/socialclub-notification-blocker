@@ -3,9 +3,10 @@ Checks for specific programs or services that may conflict with SCBlocker.
 
 Author: Daniel "Speyedr" Summer
 """
+import ctypes
 import multiprocessing
 
-
+from ctypes import windll, wintypes, byref
 
 from logger import Logger                           # :peepolove:
 from psutil import Process, process_iter, AccessDenied, NoSuchProcess
@@ -170,7 +171,7 @@ def get_conflicts(process_trie=None, process_conflicts=None):
     Logger.static_add_message("Conflicts found: " + str(conflicts))
     return conflicts
 
-
+"""
 if __name__ == "__main__":
     #process_iter()  # pre-cache
     #freeze_support()
@@ -205,5 +206,51 @@ if __name__ == "__main__":
     # 0.084129602, 1.170932615
 
     # home PC, embedded process_iter(), no regex:
-    # 0.08495782599999999, 1.115807105
+    # 0.08495782599999999, 1.115807105"""
 
+if __name__ == "__main__":
+    #windll.psapi.EnumProcesses()
+
+    max_processes = 8192
+    pids = (wintypes.DWORD * max_processes)()
+    pids_size = ctypes.sizeof(pids)
+    bytes_returned = wintypes.DWORD()
+    success = windll.psapi.EnumProcesses(byref(pids), pids_size, byref(bytes_returned))
+    print(bytes_returned.value//ctypes.sizeof(wintypes.DWORD))
+    pids = pids[10:bytes_returned.value//ctypes.sizeof(wintypes.DWORD)]
+    print(success)
+    print(pids)
+
+    PROCESS_QUERY_INFORMATION = 0x0400
+    #PROCESS_QUERY_LIMITED_INFORMATION = 0x1000     # I'm not looking to do anything other than view information
+    MAX_PATH = 260
+
+    for pid in pids:
+        handle_modules = (wintypes.HMODULE * 8192)()
+        #handle_process = wintypes.HANDLE
+        print(pid)
+
+        handle_process = windll.kernel32.OpenProcess(PROCESS_QUERY_INFORMATION, False, pid)
+        print("handle_process: ", handle_process)
+        #print(handle_process.value)
+        if handle_process > 0:
+            bytes_returned_2 = wintypes.DWORD()
+
+            success = windll.psapi.EnumProcessModules(handle_process, byref(handle_modules),
+                                                      ctypes.sizeof(handle_modules), byref(bytes_returned_2))
+            print("success: ", success, " | bytes returned: ", bytes_returned.value)
+            if success == 0:
+                print("error: ", windll.kernel32.GetLastError())
+            else:
+                print(handle_modules)
+                for h_mod in handle_modules:
+                    print(h_mod)
+                    module_name = (ctypes.c_char * MAX_PATH)()
+                    windll.kernel32.GetModuleFileNameA(h_mod, byref(module_name),
+                                                       ctypes.sizeof(module_name) // ctypes.sizeof(ctypes.c_char))
+                    print(module_name.value)
+            #windll.kernel32.CloseHandle(handle_process)
+
+
+    #for idk in pids:
+        #print(idk)
