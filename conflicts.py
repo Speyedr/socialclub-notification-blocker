@@ -210,47 +210,72 @@ if __name__ == "__main__":
 
 if __name__ == "__main__":
     #windll.psapi.EnumProcesses()
+    start = perf_counter()
 
     max_processes = 8192
     pids = (wintypes.DWORD * max_processes)()
     pids_size = ctypes.sizeof(pids)
     bytes_returned = wintypes.DWORD()
     success = windll.psapi.EnumProcesses(byref(pids), pids_size, byref(bytes_returned))
-    print(bytes_returned.value//ctypes.sizeof(wintypes.DWORD))
-    pids = pids[10:bytes_returned.value//ctypes.sizeof(wintypes.DWORD)]
-    print(success)
-    print(pids)
+    #print(bytes_returned.value//ctypes.sizeof(wintypes.DWORD))
+    pids = pids[:bytes_returned.value//ctypes.sizeof(wintypes.DWORD)]
+    #print(success)
+    #print(pids)
 
     PROCESS_QUERY_INFORMATION = 0x0400
+    PROCESS_VM_READ = 0x0010
     #PROCESS_QUERY_LIMITED_INFORMATION = 0x1000     # I'm not looking to do anything other than view information
     MAX_PATH = 260
 
     for pid in pids:
-        handle_modules = (wintypes.HMODULE * 8192)()
         #handle_process = wintypes.HANDLE
-        print(pid)
-
-        handle_process = windll.kernel32.OpenProcess(PROCESS_QUERY_INFORMATION, False, pid)
-        print("handle_process: ", handle_process)
+        #print(pid)
+        windll.kernel32.OpenProcess.restype = wintypes.HANDLE
+        handle_process = windll.kernel32.OpenProcess(PROCESS_QUERY_INFORMATION | PROCESS_VM_READ, False, pid)
+        #print("handle_process: ", handle_process)
         #print(handle_process.value)
-        if handle_process > 0:
+        #if handle_process is None:
+            #print("error: ", windll.kernel32.GetLastError())
+        if handle_process is not None:
+            handle_modules = (wintypes.HMODULE * 8192)()
             bytes_returned_2 = wintypes.DWORD()
+
+            # Need to re-declare because HMODULE breaks convention and is too big; throws Overflow error because it
+            # tries to cast a potentially 64-bit handle to a 32-bit integer
+            windll.psapi.EnumProcessModules.argtypes = wintypes.HANDLE, wintypes.HMODULE,\
+                                                       wintypes.DWORD, wintypes.LPDWORD
 
             success = windll.psapi.EnumProcessModules(handle_process, byref(handle_modules),
                                                       ctypes.sizeof(handle_modules), byref(bytes_returned_2))
-            print("success: ", success, " | bytes returned: ", bytes_returned.value)
-            if success == 0:
-                print("error: ", windll.kernel32.GetLastError())
-            else:
-                print(handle_modules)
+            #print("success: ", success, " | bytes returned: ", bytes_returned_2.value, " | handles: ",
+                  #bytes_returned_2.value // ctypes.sizeof(wintypes.DWORD))
+            #print(handle_modules)
+            #if success == 0:
+                #print("error: ", windll.kernel32.GetLastError())
+            if success:
+                handle_modules = handle_modules[:bytes_returned_2.value//ctypes.sizeof(wintypes.HMODULE)]
+                #print(handle_modules)
+                #print(ctypes.cast(handle_modules, ctypes.POINTER(ctypes.c_int))[0:100])
                 for h_mod in handle_modules:
-                    print(h_mod)
-                    module_name = (ctypes.c_char * MAX_PATH)()
-                    windll.kernel32.GetModuleFileNameA(h_mod, byref(module_name),
-                                                       ctypes.sizeof(module_name) // ctypes.sizeof(ctypes.c_char))
-                    print(module_name.value)
-            #windll.kernel32.CloseHandle(handle_process)
+                    #print(h_mod)
+                    #print(h_mod)
+                    module_name = ctypes.create_string_buffer(MAX_PATH)
+                    #print(ctypes.sizeof(module_name) // ctypes.sizeof(ctypes.c_char))
+                    windll.psapi.GetModuleFileNameExA.argtypes = wintypes.HANDLE, wintypes.HMODULE,\
+                                                                 wintypes.LPSTR, wintypes.DWORD
 
+                    success = windll.psapi.GetModuleFileNameExA(
+                        handle_process,
+                        h_mod,
+                        module_name,
+                        ctypes.sizeof(module_name) // ctypes.sizeof(ctypes.c_char))
+                    #print("module_name success: ", success)
+                    #if not success:
+                        #print("module_name error: ", windll.kernel32.GetLastError())
+                    #print(module_name.value)
+            windll.kernel32.CloseHandle(handle_process)
 
-    #for idk in pids:
-        #print(idk)
+    finish = perf_counter()
+    print(finish - start)
+
+    # 0.32423988 (sometimes 0.25, sometimes 0.40)
