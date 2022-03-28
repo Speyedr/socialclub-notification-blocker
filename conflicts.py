@@ -112,6 +112,7 @@ def construct_module_trie(process_id):
         for dll in proc.memory_maps():
             filename = search(FILE_GET_NAME, dll.path)
             if filename:
+                #filename = file_get_name(dll.path)
                 trie[filename.group().lower()] = dll.rss
         open_dll_finish = perf_counter()
     except (AccessDenied, NoSuchProcess) as e:     # Could not open process
@@ -181,6 +182,14 @@ if __name__ == "__main__":
     print(finish - start)
     logger_queue.put(finish - start)
 
+    # with regex...
     # get_all_process_names(): 0.54799 (seconds?)
     # total: 1.6638957 (seconds?)
+
+    # without regex...
+    # get_all_process_names(): 0.6590995 (seconds?)
+    # total: 2.07030996 (bruh)
+
+    # regex seems to be slightly faster
+
 
