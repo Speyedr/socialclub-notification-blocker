@@ -224,14 +224,14 @@ if __name__ == "__main__":
 
     PROCESS_QUERY_INFORMATION = 0x0400
     PROCESS_VM_READ = 0x0010
-    #PROCESS_QUERY_LIMITED_INFORMATION = 0x1000     # I'm not looking to do anything other than view information
+    PROCESS_QUERY_LIMITED_INFORMATION = 0x1000     # I'm not looking to do anything other than view information
     MAX_PATH = 260
 
     for pid in pids:
         #handle_process = wintypes.HANDLE
         #print(pid)
         windll.kernel32.OpenProcess.restype = wintypes.HANDLE
-        handle_process = windll.kernel32.OpenProcess(PROCESS_QUERY_INFORMATION | PROCESS_VM_READ, False, pid)
+        handle_process = windll.kernel32.OpenProcess(PROCESS_QUERY_LIMITED_INFORMATION | PROCESS_VM_READ, False, pid)
         #print("handle_process: ", handle_process)
         #print(handle_process.value)
         #if handle_process is None:
@@ -269,10 +269,10 @@ if __name__ == "__main__":
                         h_mod,
                         module_name,
                         ctypes.sizeof(module_name) // ctypes.sizeof(ctypes.c_char))
-                    #print("module_name success: ", success)
+                    print("module_name success: ", success)
                     #if not success:
                         #print("module_name error: ", windll.kernel32.GetLastError())
-                    #print(module_name.value)
+                    print(module_name.value)
             windll.kernel32.CloseHandle(handle_process)
 
     finish = perf_counter()
