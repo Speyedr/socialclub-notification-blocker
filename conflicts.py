@@ -9,7 +9,7 @@ from logger import Logger                           # :peepolove:
 from psutil import Process, process_iter, AccessDenied, NoSuchProcess
 from pygtrie import StringTrie, CharTrie
 from re import compile, match, search, MULTILINE
-from multiprocessing import Queue
+from multiprocessing import Queue, freeze_support
 
 # From https://www.reqrypt.org/windivert.html > Projects
 POSSIBLE_CONFLICTS = [
@@ -48,8 +48,7 @@ PROCESS_SUFFIX = ".exe"        # all process names end in .exe
 LIBRARY_SUFFIX = ".dll"        # all dynamic link libraries end in .dll
 
 LOG_FILE = "conflicts.log"     # DEBUG: will be changed to debug.log in production
-#logger_queue = multiprocessing.Queue()
-#logger = Logger(logger_queue, LOG_FILE)
+logger_queue = Queue()
 
 # Matches the name of a file from a directory path
 FILE_GET_NAME = compile("(?<=\\\\)[^\\\\]+$")    # Backslash plague makes me want to cry
@@ -87,8 +86,8 @@ def construct_module_trie(process_id):
     try:
         proc = Process(process_id)
     except (AccessDenied, NoSuchProcess) as e:
-        Logger.static_add_message("WARNING: Could not open process ID " + str(process_id) +
-                                  "\nReason: " + str(e), LOG_FILE)
+        logger_queue.put("WARNING: Could not open process ID " + str(process_id) +
+                                  "\nReason: " + str(e))
         return trie
     # Otherwise, we were able to open the process.
 
@@ -98,8 +97,8 @@ def construct_module_trie(process_id):
             if filename:
                 trie[filename.group().lower()] = dll.rss
     except (AccessDenied, NoSuchProcess) as e:     # Could not open process
-        Logger.static_add_message("WARNING: Could not get modules for process ID " + str(process_id) +
-                                  "\nReason: " + str(e), LOG_FILE)
+        logger_queue.put("WARNING: Could not get modules for process ID " + str(process_id) +
+                                  "\nReason: " + str(e))
 
     return trie
 
@@ -142,6 +141,9 @@ def get_conflicts(process_trie=None, process_conflicts=None):
 
 
 if __name__ == "__main__":
+    #freeze_support()
+    logger = Logger(logger_queue, LOG_FILE)
+    logger.start()
     proc = get_all_process_names()
     print(proc)
     for pname, pid in proc:
