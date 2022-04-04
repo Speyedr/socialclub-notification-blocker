@@ -4,8 +4,8 @@ Dynamic file implementation for translating descriptions and messages within the
 Author: Daniel "Speyedr" Summer
 
 The goal of this Translator class is to be easily readable and usable by developers, code reviewers and end users.
-I don't want this class to be so abstract and dynamic that it's impossible to understand or read messages from just
-looking at the code, and I also want to make translation accessible and dynamic so that anyone can provide translations
+I don't want this class to be so abstract that it's impossible to understand or read messages from just
+looking at the code, but I also want to make translation accessible and dynamic so that anyone can provide translations
 without having to modify or update the program or conform to any programming syntax.
 """
 
@@ -45,13 +45,17 @@ class Translator:
 
     def __init__(self, message, location, language="EN",
                  no_translation=MissingTranslationBehaviour.MISSING_TRANSLATION_TEXT,
-                 override_translation=True):
+                 write_translation=False, override_translation=True):
         self.translations = {language: message}
         self.location = location
         self.current_language = language
         self.error_behaviour = None
         self.set_missing_translation_behaviour(no_translation)
-        self.write_override = override_translation
+        self.should_write = write_translation
+        self.should_override = override_translation
+
+        if self.should_write:
+            self.write_translation()
 
     def get_message(self, language=None):
         if language is None:
@@ -98,21 +102,7 @@ class Translator:
         assert handle is not None, "File did not open successfully but exception was not caught."
 
         lines = handle.readlines()
-        # Find where translation begins (# TRANSLATION_BEGIN:)
-        i = 0
-        while i < len(lines):
-            if lines[i].find(TRANSLATION_FILE_MARKER) != -1:
-                break   # found translation marker
-            i += 1      # keep searching
-
-        if i == len(lines):         # reached end of file, no marker
-            raise MissingTranslation("Could not find a '" + language + "' translation for this message:"
-                                     "File exists, but translation marker " + TRANSLATION_FILE_MARKER +
-                                     "was not found.")
-
-        if i == len(lines)-1:       # found marker, but there's no content after it
-            raise MissingTranslation("Could not find a '" + language + "' translation for this message:"
-                                     "Translation marker found, but there isn't any content to save underneath it.")
+        i = self.find_translation_marker(lines, language)
 
         # else, everything from i+1 to end is the translated message
         message = "\n".join(lines[i+1:])
@@ -127,19 +117,56 @@ class Translator:
             language = self.current_language
 
         handle = None
-        flag = "w" if self.write_override else "x"
+        flag = "r" if self.should_override else "x"
         try:
             handle = open(self.get_file_location(language), flag)
         except (FileExistsError, PermissionError) as e:
             raise e     # we currently have no custom behaviour handler for this
 
+        lines = handle.readlines()
+        handle.close()  # let's be good developers and not leak handles
+        # find the marker (so we can overwrite everything after it)
+        marker_position = self.find_translation_marker(lines, language, False, False)
+        if marker_position == len(lines):   # no marker was found
+            lines.append(TRANSLATION_FILE_MARKER)   # create a marker
 
+        # now, we remove everything after the marker
+        lines = lines[:marker_position]
+        message = self.get_message(language).splitlines()    # get the message we should be writing
+        lines.extend(message)   # put the message at the end
+
+        # time to actually save
+        flag = "w"  # we'll be overriding this time
+        try:
+            handle = open(self.get_file_location(language), flag)
+        except PermissionError as e:
+            raise e  # we currently have no custom behaviour handler for this
+
+        handle.write("\n".join(lines))
+        handle.close()
+        return
 
     def get_file_location(self, language):
         return "translations\\" + language + "\\" + self.location + ".txt"
 
-    def find_translation_marker(self, content):
-        pass
+    def find_translation_marker(self, content_lines, language="", require_marker=True, require_translation=True):
+        # Find where translation begins (# TRANSLATION_BEGIN:)
+        i = 0
+        while i < len(content_lines):
+            if content_lines[i].find(TRANSLATION_FILE_MARKER) != -1:
+                break  # found translation marker
+            i += 1  # keep searching
+
+        if i == len(content_lines) and require_marker:  # reached end of file, no marker
+            raise MissingTranslation("Could not find a '" + language + "' translation for this message:"
+                                                                       "File exists, but translation marker " + TRANSLATION_FILE_MARKER +
+                                     "was not found.")
+
+        if i == len(content_lines) - 1 and require_translation:  # found marker, but there's no content after it
+            raise MissingTranslation("Could not find a '" + language + "' translation for this message:"
+                                                                       "Translation marker found, but there isn't any content to save underneath it.")
+
+        return i
 
     def set_missing_translation_behaviour(self, behaviour):
         if not isinstance(behaviour, MissingTranslationBehaviour):
