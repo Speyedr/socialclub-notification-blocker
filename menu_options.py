@@ -63,7 +63,10 @@ class MenuText:
     @staticmethod
     def update_language(language):
         for translator_object in vars(MenuText).values():
-            translator_object.set_language(language)
+            if isinstance(translator_object, Translator):
+                translator_object.set_language(language)
+            else:
+                pass    # TODO: Add logger warning message here
 
 class Menu:
     IS_FILTER_RUNNING = True
