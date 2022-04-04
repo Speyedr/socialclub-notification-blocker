@@ -118,31 +118,35 @@ class Translator:
 
         handle = None
         flag = "r" if self.should_override else "x"
+        lines = []
         try:
             handle = open(self.get_file_location(language), flag)
         except (FileExistsError, PermissionError) as e:
             raise e     # we currently have no custom behaviour handler for this
+        except FileNotFoundError:
+            pass        # no need to do all the extra work to create and read a file that doesn't exist
+        else:
+            lines = handle.readlines()
+            handle.close()  # let's be good developers and not leak handles
 
-        lines = handle.readlines()
-        handle.close()  # let's be good developers and not leak handles
         # find the marker (so we can overwrite everything after it)
         marker_position = self.find_translation_marker(lines, language, False, False)
-        if marker_position == len(lines):   # no marker was found
-            lines.append(TRANSLATION_FILE_MARKER)   # create a marker
+        if marker_position >= len(lines):   # no marker was found
+            lines.append(TRANSLATION_FILE_MARKER+'\n')   # create a marker
 
         # now, we remove everything after the marker
-        lines = lines[:marker_position]
-        message = self.get_message(language).splitlines()    # get the message we should be writing
+        lines = lines[:marker_position+1]
+        message = self.get_message(language).splitlines(True)    # get the message we should be writing
         lines.extend(message)   # put the message at the end
 
         # time to actually save
-        flag = "w"  # we'll be overriding this time
+        flag = "w+"  # we'll be overriding this time
         try:
             handle = open(self.get_file_location(language), flag)
         except PermissionError as e:
             raise e  # we currently have no custom behaviour handler for this
 
-        handle.write("\n".join(lines))
+        handle.write("".join(lines))
         handle.close()
         return
 
@@ -175,7 +179,7 @@ class Translator:
 
 
 if __name__ == "__main__":
-    tr = Translator("This is a test message.", "tr_test", "EN", MissingTranslationBehaviour.MISSING_TRANSLATION_TEXT)
+    tr = Translator("This is a secondary test message.", "tr_test", "EN", MissingTranslationBehaviour.MISSING_TRANSLATION_TEXT, True)
     print(tr.get_message())
     print(tr.translations)
     print(tr.get_message("ES"))
@@ -184,3 +188,7 @@ if __name__ == "__main__":
     print(tr.get_message("EN"))
     print(tr.get_message(""))   # Error handling test
     print(tr.translations)      # Make sure that the erroneous behaviour didn't affect internal structure.
+    Translator("This is a new test message.", "tr_test_new", "EN", MissingTranslationBehaviour.RAISE_EXCEPTION, True)
+    tr2 = Translator("Este es un nuevo mensaje de prueba.", "tr_test_new", "ES", MissingTranslationBehaviour.RAISE_EXCEPTION, True)
+    tr2.set_language("EN")
+    print(tr2.translations)
