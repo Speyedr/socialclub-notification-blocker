@@ -151,14 +151,22 @@ class Menu:
 
     @staticmethod
     def set_options(options):
-        if len(options) != len(Menu.get_options()):
-            raise ValueError("Length mismatch")
-        Menu.IS_FILTER_RUNNING = options[0]
-        Menu.IS_LOGGING = options[1]
-        Menu.IS_DROP_INC_80 = options[2]
-        Menu.IS_DROP_CLIENT_POST = options[3]
-        Menu.IS_DROP_LENGTH = options[4]
-        Menu.DISPLAY_LANGUAGE = options[5]
+        version_number = 0
+        try:
+            version_number = int(options[0])
+        except ValueError:
+            pass    # assume version 0 (which didn't have a version number)
+        else:
+            options = options[1:]   # remove the version number (it's not a setting)
+
+        if version_number >= 0:
+            Menu.IS_FILTER_RUNNING = options[0]
+            Menu.IS_LOGGING = options[1]
+            Menu.IS_DROP_INC_80 = options[2]
+            Menu.IS_DROP_CLIENT_POST = options[3]
+            Menu.IS_DROP_LENGTH = options[4]
+        if version_number >= 1:
+            Menu.DISPLAY_LANGUAGE = options[5]
 
     @staticmethod
     def emphasize():

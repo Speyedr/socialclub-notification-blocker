@@ -24,6 +24,7 @@ def convert(item):
 
 
 class Settings:
+    CURRENT_VERSION_NUMBER = 1
 
     def __init__(self, default_settings, file_location="config.ini"):
         self.file_location = file_location
@@ -39,7 +40,7 @@ class Settings:
         return [convert(i) for i in content.split('\n')]      # every element is a different line
 
     def write_settings(self, elements_to_save):
-        all_strings = [str(i) for i in elements_to_save]
+        all_strings = [str(Settings.CURRENT_VERSION_NUMBER)] + [str(i) for i in elements_to_save]
         overwrite = '\n'.join(all_strings)
         handle = open(self.file_location, "w")
         handle.write(overwrite)
