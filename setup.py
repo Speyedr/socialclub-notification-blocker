@@ -4,6 +4,7 @@ https://gitlab.com/digitalarc/guardian/-/blob/master/setup.py
 """
 
 from cx_Freeze import setup, Executable
+from main import VERSION
 import sys
 import zipfile
 import os
@@ -11,15 +12,15 @@ import shutil
 
 zip_exclude_packages = ['pydivert']
 
-build_options = dict(packages=[], includes=['pydivert'],
+build_options = dict(packages=[], includes=['pydivert'], excludes=['tkinter'],
                      replace_paths=[("*", "")], optimize=2, zip_include_packages="*",
                      zip_exclude_packages=zip_exclude_packages, silent=True)
 executables = [
-    Executable('main.py', targetName="SCBlocker.exe", icon="icon.ico",
-               copyright='Copyright (C) 2022 Daniel Summer')
+    Executable('main.py', target_name="SCBlocker.exe", icon="icon.ico",
+               copyright='Copyright (C) 2022 Daniel Summer', uac_admin=True)
 ]
 
-version = "0.1.1"
+version = VERSION
 
 build_path = 'build/exe.win-amd64-{}.{}'.format(sys.version_info.major, sys.version_info.minor)
 
@@ -29,8 +30,8 @@ if os.path.exists(build_path):
 if not os.path.exists('build/exe'):
     os.makedirs('build/exe')
 
-if os.path.isfile('build/exe/guardian-{}.zip'.format(version)):
-    os.remove('build/exe/guardian-{}.zip'.format(version))
+if os.path.isfile('build/exe/SocialClubBlocker-{}.zip'.format(version)):
+    os.remove('build/exe/SocialClubBlocker-{}.zip'.format(version))
 
 
 setup(name='SocialClub Notification Blocker',

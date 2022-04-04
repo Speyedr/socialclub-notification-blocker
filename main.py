@@ -16,7 +16,7 @@ import pydivert     # for cx_Freeze?
 from filter import DropLengthSettings, Filter, FilterFlags, FilterSettings
 from msvcrt import kbhit, getch   # For getting keyboard input.
 from time import sleep, time
-from menu_options import Menu, MenuNames
+from menu_options import Menu, MenuText
 from os import system
 from webbrowser import open as open_in_browser
 from logger import Logger
@@ -25,6 +25,8 @@ from traceback import format_exc
 from settings import Settings
 from ctypes import windll
 from sys import exit as sys_exit
+#from setup import version as PROGRAM_VERSION    # reference version from the build script
+# actually, probably better the build script references main instead
 
 DONATE = "https://ko-fi.com/speyedr"
 
@@ -107,6 +109,12 @@ def main():
             previous_menu_state = current_menu_state
             if Menu.IS_FILTER_RUNNING:                          # Filter should be running
                 settings = get_filter_settings()
+
+                if FilterSettings.SERVER_IP is None and \
+                    (settings.flags & (FilterFlags.DROP_CLIENT_POST | FilterFlags.DROP_LENGTH)):
+                    logger.add_message("WARN: User is running network filter without a resolved SERVER_IP.")
+                    print(Menu.WRN_MSG_NO_SERVER_IP)
+
                 if settings.flags == FilterFlags(False):        # No filters are being applied
                     logger.add_message("WARN: User attempted to start network filter with no filters applied.")
                     print(Menu.ERR_MSG_NO_FILTERS)              # Tell the user something's wrong
@@ -139,7 +147,7 @@ def main():
         option = wait_for_valid_key(Menu.MAIN_OPTIONS)          # Wait until we get a valid option
         trigger_auto_action(option)                             # Attempt to trigger its' automatic action
 
-        if option["name"] == MenuNames.ADJUST_FILTER:
+        if option["name"] == MenuText.ADJUST_FILTER:
             should_go_back = False
             while not should_go_back:
                 Menu.update_menu()
@@ -149,15 +157,15 @@ def main():
                 option2 = wait_for_valid_key(Menu.FILTER_OPTIONS)
                 trigger_auto_action(option2)
 
-                if option2["name"] == MenuNames.FILTER_SETTINGS_GO_BACK:     # Time to go back
+                if option2["name"] == MenuText.FILTER_SETTINGS_GO_BACK:     # Time to go back
                     should_go_back = True
 
-        if option["name"] == MenuNames.OPEN_DONATION_URL:
+        if option["name"] == MenuText.OPEN_DONATION_URL:
             logger.add_message("User selected OPEN_DONATION_URL...")
             open_in_browser(DONATE)
             sleep(3)    # Pause the UI thread so we don't open 10 billion pages
 
-        if option["name"] == MenuNames.EXIT_PROGRAM:
+        if option["name"] == MenuText.EXIT_PROGRAM:
             logger.add_message("User selected EXIT_PROGRAM...")
             if is_filter_running:
                 logger.add_message("Stopping network filter...")

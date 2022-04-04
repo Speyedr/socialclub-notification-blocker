@@ -41,9 +41,14 @@ class Logger:
         # If there is a packet then get it, else wait for one. Packets are encoded as base64 because the Packet class
         # uses memoryview types which are great but you can't pickle them (i.e. can't pipe them to different processes).
         try:
-            (packet_base64, interface, direction, allowed, reason) = self.queue.get(blocking, timeout)
-            packet = Packet(decodebytes(packet_base64), interface, direction)  # Decode the and recreate the packet.
-            self.add_message(Logger.construct_packet_debug_info(packet, allowed, reason))
+            item = self.queue.get(blocking, timeout)
+            #print(item)
+            try:
+                (packet_base64, interface, direction, allowed, reason) = item
+                packet = Packet(decodebytes(packet_base64), interface, direction)  # Decode the and recreate the packet.
+                self.add_message(Logger.construct_packet_debug_info(packet, allowed, reason))
+            except (ValueError, TypeError):
+                self.add_message(str(item))  # ghetto fix for also allowing strings
         except queue.Empty:
             pass
 

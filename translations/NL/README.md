@@ -33,9 +33,9 @@ Dutch | [English](../../README.md) | [French](../FR/README.md) | [Romanian](../R
 
 ## Filters
  - Deze app biedt drie verschillende filterheuristieken die allemaal gericht zijn op verschillende punten in de communicatieketen tussen jouw client en de SocialClub-overlay.
- - Filter #1 `DROP_INC_80` is de snelste en heeft de minste invloed op de prestaties, maar je kunt worden overspoeld met meldingen wanneer het filter is uitgeschakeld.
- - Filter #2 `DROP_CLIENT_POST` is standaard ingeschakeld omdat het eindresultaat waarschijnlijk is waar de meeste gebruikers naar op zoek zijn.
- - Filter #3 `DROP_LENGTHS` is de meest gecompliceerde en nog in ontwikkeling en daarom niet aanbevolen.
+ - Filter #&#x2060;1 `DROP_INC_80` is de snelste en heeft de minste invloed op de prestaties, maar je kunt worden overspoeld met meldingen wanneer het filter is uitgeschakeld.
+ - Filter #&#x2060;2 `DROP_CLIENT_POST` is standaard ingeschakeld omdat het eindresultaat waarschijnlijk is waar de meeste gebruikers naar op zoek zijn.
+ - Filter #&#x2060;3 `DROP_LENGTHS` is de meest gecompliceerde en nog in ontwikkeling en daarom niet aanbevolen.
 
    <img src="/img/SCBlockerTease3.png" alt="Logging dropped packets" height=120 width=527>
 

@@ -30,9 +30,9 @@
 
 ## Filtre
  - Această aplicație utilizează trei algoritmi diferiți care vizează differite puncte în lanțul de comunicări dintre clientul tău și overlay-ul SocialClub.
- - Filtrul #1 `DROP_INC_80` este cel mai rapid și afectează cel mai puțin performanța dar este posibil să fi surprasolicitat cu notificări când filtrul este oprit.
- - Filtrul #2 `DROP_CLIENT_POST` este pornit implicit din moment ce acesta indeplinește așteptările minime ale utilizatorului.
- - Filtrul #3 `DROP_LENGTHS` este cel mai complicat și încă în faza de dezvoltare, astfel acesta nu este recomandat.
+ - Filtrul #&#x2060;1 `DROP_INC_80` este cel mai rapid și afectează cel mai puțin performanța dar este posibil să fi surprasolicitat cu notificări când filtrul este oprit.
+ - Filtrul #&#x2060;2 `DROP_CLIENT_POST` este pornit implicit din moment ce acesta indeplinește așteptările minime ale utilizatorului.
+ - Filtrul #&#x2060;3 `DROP_LENGTHS` este cel mai complicat și încă în faza de dezvoltare, astfel acesta nu este recomandat.
 
    <img src="/img/SCBlockerTease3.png" alt="Logging dropped packets" height=120 width=527>
 

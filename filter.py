@@ -1,10 +1,10 @@
 import pydivert                                     # handles capturing and dropping or allowing packets
-from socket import gethostbyname                    # get IP address from hostname
+from socket import gethostbyname, gaierror          # get IP address from hostname
 from enum import Flag, auto                         # flags and options
 from re import compile, match, search, MULTILINE    # searching text / content
 from multiprocessing import Process                 # Allows multi-processing (so the filter can run "behind" the UI)
 from logger import Logger, BlockReason
-from base64 import encodebytes
+from base64 import encodebytes                      # for transferring Packet objects between processes
 
 
 LOG_FILE = "debug.log"
@@ -58,6 +58,14 @@ class DropLengthSettings:
         self.verify_offsets(self.min_length, self.max_length)
 
 
+def gethostbyname_safe(name):
+    try:
+        return gethostbyname(name)
+    except gaierror:
+        Logger.static_add_message("WARNING: Could not resolve " + name)
+        return None
+
+
 class FilterSettings:
     CLIENT_POST_ENDPOINT = "/gta5/11/gameservices/Presence.asmx/GetMessages"      # Update if R* change the endpoint
     CLIENT_POST_HOST = "prs-gta5-prod.ros.rockstargames.com"                      # Update if R* change the website
@@ -67,7 +75,7 @@ class FilterSettings:
                     "Host: " + CLIENT_POST_HOST]                                  # Each element is a line of the header
     CLIENT_LINE_SEP = '\r\n'                                                      # The line separator
     MATCH_HEADER = compile(bytes('^'+CLIENT_LINE_SEP.join(CLIENT_LINES), 'utf-8'))# Used to match the entire header
-    SERVER_IP = gethostbyname(CLIENT_POST_HOST)                                   # The IP address of the website
+    SERVER_IP = gethostbyname_safe(CLIENT_POST_HOST)                              # The IP address of the website
     SERVER_RESPONSE_LENGTH_ATTR = "Content-Length: "        # The attribute that claims the length of content returned.
     GET_RESPONSE_LENGTH = compile(
         bytes("(?<=^"+SERVER_RESPONSE_LENGTH_ATTR+r")\d+", 'utf-8'), MULTILINE)   # Get the length of content returned.
@@ -85,6 +93,10 @@ class FilterSettings:
             Logger.static_add_message("Logger supplied to FilterSettings: " + str(self.logger), LOG_FILE)
         else:
             Logger.static_add_message("Logger not supplied to FilterSettings.", LOG_FILE)
+
+        # If we couldn't resolve the server IP last time, try again.
+        if FilterSettings.SERVER_IP is None:
+            FilterSettings.SERVER_IP = gethostbyname_safe(FilterSettings.SERVER_IP)
 
     def should_allow(self, packet):
         if (self.flags & FilterFlags.DROP_INC_80) and packet.is_inbound and packet.udp is not None \
@@ -105,7 +117,6 @@ class FilterSettings:
         if (self.flags & FilterFlags.DROP_LENGTH) and packet.is_inbound \
                 and packet.tcp is not None and packet.src_addr == FilterSettings.SERVER_IP:
             content_length = search(FilterSettings.GET_RESPONSE_LENGTH, packet.payload)
-            #print(content_length)
             if content_length and self.drop_lengths.bounds(int(content_length.group())):
                 if self.logger is not None:
                     self.logger.put((encodebytes(packet.raw), packet.interface, packet.direction,
@@ -122,8 +133,10 @@ class Filter:
 
     # The following string constructions are PyDivert filters.
     FILTER_INC_80 = "(udp.SrcPort >= "+RSERV_MIN_PORT+" and udp.SrcPort <= "+RSERV_MAX_PORT+")"
-    FILTER_CLIENT_POST = "(tcp.DstPort == 80 and ip.DstAddr == "+FilterSettings.SERVER_IP+")"
-    FILTER_LENGTH = "(tcp.SrcPort == 80 and ip.SrcAddr == "+FilterSettings.SERVER_IP+")"
+    FILTER_CLIENT_POST = "(tcp.DstPort == 80 and ip"+\
+                         ((".DstAddr == "+FilterSettings.SERVER_IP) if FilterSettings.SERVER_IP is not None else "")+")"
+    FILTER_LENGTH = "(tcp.SrcPort == 80 and ip"+\
+                        ((".SrcAddr == "+FilterSettings.SERVER_IP) if FilterSettings.SERVER_IP is not None else "")+")"
 
     def __init__(self, filter_settings):
         filters = [(FilterFlags.DROP_INC_80, Filter.FILTER_INC_80),
