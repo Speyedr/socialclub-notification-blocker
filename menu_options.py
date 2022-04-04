@@ -2,10 +2,13 @@ from colorama import init, Fore, Back   # for colouring boolean options
 from translator import Translator, MissingTranslationBehaviour as MTB
 from enum import Enum, auto
 from logger import Logger
+from os import scandir
+
 init()  # initializes colorama library
 
 DEFAULT_LANGUAGE = "EN"
 LOG_FILE = "menu.log"   # DEBUG: Will be changed to debug.log in production
+TRANSLATION_FOLDER = "translations"
 
 
 class MenuTypes(Enum):
@@ -263,8 +266,20 @@ class Menu:
                         "desc": MenuText.FILTER_SETTINGS_GO_BACK_DESC.get_message()}}
 
     @staticmethod
-    def generate_language_settings_menu():
+    def generate_language_settings_menu(page=0, max_entries_per_page=9):
         # Check the translations folder, get sub-folders, check Author's file.
+        start_key = "1"
+        has_prev_page = page > 0
+        lang_codes = [file.path[len(TRANSLATION_FOLDER)+1:] for file in scandir(TRANSLATION_FOLDER) if file.is_dir()]
+        has_next_page = (page+1) * max_entries_per_page < len(lang_codes)
+
+        try:
+            lang_codes = lang_codes[page*max_entries_per_page:]     # trim from left
+        except IndexError as e:
+            raise e     # no handling yet. essentially, this error occurs when a page cannot exist / is empty
+
+        lang_codes = lang_codes[:max_entries_per_page]  # this should never fail; it's like minimising on a maximum
+
         return ""
 
     @staticmethod

@@ -12,10 +12,11 @@ without having to modify or update the program or conform to any programming syn
 from enum import Enum, auto
 from logger import Logger
 
-from main import LOG_FILE
+#from main import LOG_FILE
 
 TRANSLATION_FILE_MARKER = "# TRANSLATION_BEGIN:"
 NO_TRANSLATION = "[Missing Translation]"
+LOG_FILE = "translator.log"     # DEBUG, switch to debug.log in production
 
 
 class MissingTranslation(Exception):
