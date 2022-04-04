@@ -40,15 +40,18 @@ class Translator:
     The method .set_language("FR") can be called, at which point the file at
     `translations\\FR\\TEST_MESSAGE.TXT` is read, and
     any further calls to .get_message() will default to the French translation.
+    override_translation
     """
 
     def __init__(self, message, location, language="EN",
-                 no_translation=MissingTranslationBehaviour.MISSING_TRANSLATION_TEXT):
+                 no_translation=MissingTranslationBehaviour.MISSING_TRANSLATION_TEXT,
+                 override_translation=True):
         self.translations = {language: message}
         self.location = location
         self.current_language = language
         self.error_behaviour = None
         self.set_missing_translation_behaviour(no_translation)
+        self.write_override = override_translation
 
     def get_message(self, language=None):
         if language is None:
@@ -83,7 +86,7 @@ class Translator:
     def load_message(self, language):
         handle = None
         try:
-            handle = open("translations\\" + language + "\\" + self.location + ".txt")
+            handle = open(self.get_file_location(language))
         except (FileNotFoundError, PermissionError) as e:
             if isinstance(e, FileNotFoundError):
                 raise MissingTranslation("Could not load a '" + language + "' translation for this message: "
@@ -118,6 +121,25 @@ class Translator:
 
     def save_translation(self, message, language):
         self.translations[language] = message
+
+    def write_translation(self, language=None):
+        if language is None:
+            language = self.current_language
+
+        handle = None
+        flag = "w" if self.write_override else "x"
+        try:
+            handle = open(self.get_file_location(language), flag)
+        except (FileExistsError, PermissionError) as e:
+            raise e     # we currently have no custom behaviour handler for this
+
+
+
+    def get_file_location(self, language):
+        return "translations\\" + language + "\\" + self.location + ".txt"
+
+    def find_translation_marker(self, content):
+        pass
 
     def set_missing_translation_behaviour(self, behaviour):
         if not isinstance(behaviour, MissingTranslationBehaviour):
