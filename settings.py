@@ -15,6 +15,11 @@ def convert(item):
     except ValueError:
         pass
 
+    try:
+        return float(item)
+    except ValueError:
+        pass
+
     return item
 
 
