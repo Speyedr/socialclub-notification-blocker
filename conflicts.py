@@ -3,7 +3,10 @@ Checks for specific programs or services that may conflict with SCBlocker.
 
 Author: Daniel "Speyedr" Summer
 """
+import ctypes
 import multiprocessing
+
+from ctypes import windll, wintypes, byref
 
 from logger import Logger                           # :peepolove:
 from psutil import Process, process_iter, AccessDenied, NoSuchProcess
@@ -77,13 +80,13 @@ def construct_process_trie():
     return trie
 
 
-def construct_module_trie(process_id):
+def construct_module_trie():
     """
     :param process_id:
     :return: Trie containing all loaded modules in a process.
     """
     perf = []
-    trie = CharTrie()
+    tries = []
     # FIXME: There seems to be poor performance here somewhere. Investigate the performance of the regex search.
     #  Should maybe switch to a different method of getting the file name, like str.split("\\")?
     open_proc_start = perf_counter()
@@ -93,40 +96,43 @@ def construct_module_trie(process_id):
     open_dll_finish = 0
     regex_start = 0
     regex_finish = 0
-    try:
-        proc = Process(process_id)
-        open_proc_finish = perf_counter()
-    except (AccessDenied, NoSuchProcess) as e:
-        log_start = perf_counter()
-        logger_queue.put("WARNING: Could not open process ID " + str(process_id) +
-                                  "\nReason: " + str(e))
-        log_finish = perf_counter()
-        open_proc_finish = perf_counter()
-        perf.extend([open_proc_finish - open_proc_start, log_finish - log_start])
+    for proc in process_iter():
+        try:
+            #proc = Process(process_id)
+            open_proc_finish = perf_counter()
+        except (AccessDenied, NoSuchProcess) as e:
+            log_start = perf_counter()
+            logger_queue.put("WARNING: Could not open process ID " + str(proc.pid) +
+                                      "\nReason: " + str(e))
+            log_finish = perf_counter()
+            open_proc_finish = perf_counter()
+            perf.extend([open_proc_finish - open_proc_start, log_finish - log_start])
+            logger_queue.put(perf)
+            continue
+        # Otherwise, we were able to open the process.
+
+        try:
+            trie = CharTrie()
+            open_dll_start = perf_counter()
+            for dll in proc.memory_maps():
+                #filename = search(FILE_GET_NAME, dll.path)
+                #if filename:
+                filename = file_get_name(dll.path)
+                trie[filename.lower()] = dll.rss
+            tries.append(trie)
+            open_dll_finish = perf_counter()
+        except (AccessDenied, NoSuchProcess) as e:     # Could not open process
+            log_start = perf_counter()
+            open_dll_start = 0
+            logger_queue.put("WARNING: Could not get modules for process ID " + str(proc.pid) +
+                                      "\nReason: " + str(e))
+            log_finish = perf_counter()
+
+        #open_proc_finish = perf_counter()
+        perf.extend([open_proc_finish - open_proc_start, log_finish - log_start,
+                     open_dll_finish - open_dll_start])
         logger_queue.put(perf)
-        return trie
-    # Otherwise, we were able to open the process.
-
-    try:
-        open_dll_start = perf_counter()
-        for dll in proc.memory_maps():
-            filename = search(FILE_GET_NAME, dll.path)
-            if filename:
-                #filename = file_get_name(dll.path)
-                trie[filename.group().lower()] = dll.rss
-        open_dll_finish = perf_counter()
-    except (AccessDenied, NoSuchProcess) as e:     # Could not open process
-        log_start = perf_counter()
-        open_dll_start = 0
-        logger_queue.put("WARNING: Could not get modules for process ID " + str(process_id) +
-                                  "\nReason: " + str(e))
-        log_finish = perf_counter()
-
-    #open_proc_finish = perf_counter()
-    perf.extend([open_proc_finish - open_proc_start, log_finish - log_start,
-                 open_dll_finish - open_dll_start])
-    logger_queue.put(perf)
-    return trie
+    return tries
 
 
 def get_conflicts(process_trie=None, process_conflicts=None):
@@ -165,19 +171,20 @@ def get_conflicts(process_trie=None, process_conflicts=None):
     Logger.static_add_message("Conflicts found: " + str(conflicts))
     return conflicts
 
-
+"""
 if __name__ == "__main__":
+    #process_iter()  # pre-cache
     #freeze_support()
     start = perf_counter()
     logger = Logger(logger_queue, LOG_FILE)
     logger.start()
     one = perf_counter()
-    proc = get_all_process_names()
+    #proc = get_all_process_names()
     print(perf_counter() - one)
     #print(proc)
-    for pname, pid in proc:
-        trie = construct_module_trie(pid)
-        #print(trie)
+    #for pname, pid in proc:
+    trie = construct_module_trie()
+    #print(trie)
     finish = perf_counter()
     print(finish - start)
     logger_queue.put(finish - start)
@@ -192,4 +199,83 @@ if __name__ == "__main__":
 
     # regex seems to be slightly faster
 
+    # home PC, regex:
+    # 0.08537806800000003, 1.2365573250000002
 
+    # home PC, embedded process_iter(), regex:
+    # 0.084129602, 1.170932615
+
+    # home PC, embedded process_iter(), no regex:
+    # 0.08495782599999999, 1.115807105"""
+
+if __name__ == "__main__":
+    #windll.psapi.EnumProcesses()
+    start = perf_counter()
+
+    max_processes = 8192
+    pids = (wintypes.DWORD * max_processes)()
+    pids_size = ctypes.sizeof(pids)
+    bytes_returned = wintypes.DWORD()
+    success = windll.psapi.EnumProcesses(byref(pids), pids_size, byref(bytes_returned))
+    #print(bytes_returned.value//ctypes.sizeof(wintypes.DWORD))
+    pids = pids[:bytes_returned.value//ctypes.sizeof(wintypes.DWORD)]
+    #print(success)
+    #print(pids)
+
+    PROCESS_QUERY_INFORMATION = 0x0400
+    PROCESS_VM_READ = 0x0010
+    PROCESS_QUERY_LIMITED_INFORMATION = 0x1000     # I'm not looking to do anything other than view information
+    MAX_PATH = 260
+
+    for pid in pids:
+        #handle_process = wintypes.HANDLE
+        #print(pid)
+        windll.kernel32.OpenProcess.restype = wintypes.HANDLE
+        handle_process = windll.kernel32.OpenProcess(PROCESS_QUERY_LIMITED_INFORMATION | PROCESS_VM_READ, False, pid)
+        #print("handle_process: ", handle_process)
+        #print(handle_process.value)
+        #if handle_process is None:
+            #print("error: ", windll.kernel32.GetLastError())
+        if handle_process is not None:
+            handle_modules = (wintypes.HMODULE * 8192)()
+            bytes_returned_2 = wintypes.DWORD()
+
+            # Need to re-declare because HMODULE breaks convention and is too big; throws Overflow error because it
+            # tries to cast a potentially 64-bit handle to a 32-bit integer
+            windll.psapi.EnumProcessModules.argtypes = wintypes.HANDLE, wintypes.HMODULE,\
+                                                       wintypes.DWORD, wintypes.LPDWORD
+
+            success = windll.psapi.EnumProcessModules(handle_process, byref(handle_modules),
+                                                      ctypes.sizeof(handle_modules), byref(bytes_returned_2))
+            #print("success: ", success, " | bytes returned: ", bytes_returned_2.value, " | handles: ",
+                  #bytes_returned_2.value // ctypes.sizeof(wintypes.DWORD))
+            #print(handle_modules)
+            #if success == 0:
+                #print("error: ", windll.kernel32.GetLastError())
+            if success:
+                handle_modules = handle_modules[:bytes_returned_2.value//ctypes.sizeof(wintypes.HMODULE)]
+                #print(handle_modules)
+                #print(ctypes.cast(handle_modules, ctypes.POINTER(ctypes.c_int))[0:100])
+                for h_mod in handle_modules:
+                    #print(h_mod)
+                    #print(h_mod)
+                    module_name = ctypes.create_string_buffer(MAX_PATH)
+                    #print(ctypes.sizeof(module_name) // ctypes.sizeof(ctypes.c_char))
+                    windll.psapi.GetModuleFileNameExA.argtypes = wintypes.HANDLE, wintypes.HMODULE,\
+                                                                 wintypes.LPSTR, wintypes.DWORD
+
+                    success = windll.psapi.GetModuleFileNameExA(
+                        handle_process,
+                        h_mod,
+                        module_name,
+                        ctypes.sizeof(module_name) // ctypes.sizeof(ctypes.c_char))
+                    print("module_name success: ", success)
+                    #if not success:
+                        #print("module_name error: ", windll.kernel32.GetLastError())
+                    print(module_name.value)
+            windll.kernel32.CloseHandle(handle_process)
+
+    finish = perf_counter()
+    print(finish - start)
+
+    # 0.32423988 (sometimes 0.25, sometimes 0.40)
