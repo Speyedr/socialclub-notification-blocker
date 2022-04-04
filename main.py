@@ -16,7 +16,7 @@ import pydivert     # for cx_Freeze?
 from filter import DropLengthSettings, Filter, FilterFlags, FilterSettings
 from msvcrt import kbhit, getch   # For getting keyboard input.
 from time import sleep, time
-from menu_options import Menu, MenuNames
+from menu_options import Menu, MenuText
 from os import system
 from webbrowser import open as open_in_browser
 from logger import Logger
@@ -147,7 +147,7 @@ def main():
         option = wait_for_valid_key(Menu.MAIN_OPTIONS)          # Wait until we get a valid option
         trigger_auto_action(option)                             # Attempt to trigger its' automatic action
 
-        if option["name"] == MenuNames.ADJUST_FILTER:
+        if option["name"] == MenuText.ADJUST_FILTER:
             should_go_back = False
             while not should_go_back:
                 Menu.update_menu()
@@ -157,15 +157,15 @@ def main():
                 option2 = wait_for_valid_key(Menu.FILTER_OPTIONS)
                 trigger_auto_action(option2)
 
-                if option2["name"] == MenuNames.FILTER_SETTINGS_GO_BACK:     # Time to go back
+                if option2["name"] == MenuText.FILTER_SETTINGS_GO_BACK:     # Time to go back
                     should_go_back = True
 
-        if option["name"] == MenuNames.OPEN_DONATION_URL:
+        if option["name"] == MenuText.OPEN_DONATION_URL:
             logger.add_message("User selected OPEN_DONATION_URL...")
             open_in_browser(DONATE)
             sleep(3)    # Pause the UI thread so we don't open 10 billion pages
 
-        if option["name"] == MenuNames.EXIT_PROGRAM:
+        if option["name"] == MenuText.EXIT_PROGRAM:
             logger.add_message("User selected EXIT_PROGRAM...")
             if is_filter_running:
                 logger.add_message("Stopping network filter...")

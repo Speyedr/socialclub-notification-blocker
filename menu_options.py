@@ -1,4 +1,5 @@
 from colorama import init, Fore, Back   # for colouring boolean options
+from translator import Translator
 init()  # initializes colorama library
 
 DEFAULT_LANGUAGE = "EN"
@@ -6,37 +7,63 @@ DEFAULT_LANGUAGE = "EN"
 
 def toggle_option(name):
     # There's absolutely a better way to do this but I can't be bothered coming up with it at the moment lol
-    if name == MenuNames.FILTER: Menu.IS_FILTER_RUNNING = not Menu.IS_FILTER_RUNNING
-    if name == MenuNames.LOG_BLOCKED_ACTIVITY: Menu.IS_LOGGING = not Menu.IS_LOGGING
-    if name == MenuNames.DROP_INC_80:
+    if name == MenuText.FILTER: Menu.IS_FILTER_RUNNING = not Menu.IS_FILTER_RUNNING
+    if name == MenuText.LOG_BLOCKED_ACTIVITY: Menu.IS_LOGGING = not Menu.IS_LOGGING
+    if name == MenuText.DROP_INC_80:
         Menu.IS_DROP_INC_80 = not Menu.IS_DROP_INC_80
         if Menu.DROP_OPTIONS_MUTUALLY_EXCLUSIVE:
             Menu.IS_DROP_CLIENT_POST = False
             Menu.IS_DROP_LENGTH = False
-    if name == MenuNames.DROP_CLIENT_POST:
+    if name == MenuText.DROP_CLIENT_POST:
         Menu.IS_DROP_CLIENT_POST = not Menu.IS_DROP_CLIENT_POST
         if Menu.DROP_OPTIONS_MUTUALLY_EXCLUSIVE:
             Menu.IS_DROP_INC_80 = False
             Menu.IS_DROP_LENGTH = False
-    if name == MenuNames.DROP_LENGTHS:
+    if name == MenuText.DROP_LENGTHS:
         Menu.IS_DROP_LENGTH = not Menu.IS_DROP_LENGTH
         if Menu.DROP_OPTIONS_MUTUALLY_EXCLUSIVE:
             Menu.IS_DROP_INC_80 = False
             Menu.IS_DROP_CLIENT_POST = False
 
 
-class MenuNames:
-    FILTER = "FILTER:"
-    ADJUST_FILTER = "ADJUST FILTER SETTINGS"
-    LOG_BLOCKED_ACTIVITY = "LOG BLOCKED ACTIVITY:"
-    OPEN_DONATION_URL = "Open Donation URL"
-    EXIT_PROGRAM = "EXIT PROGRAM"
-    DROP_INC_80 = "DROP INC 80:"
-    DROP_CLIENT_POST = "DROP CLIENT POST [RECOMMENDED]:"
-    DROP_LENGTHS = "DROP LENGTHS [EXPERIMENTAL]:"
-    FILTER_SETTINGS_GO_BACK = "Go back"
-    CHANGE_LANGUAGE = "CHANGE DISPLAY LANGUAGE"
+class MenuText:
+    FILTER = Translator("FILTER:", "MenuNames_FILTER", "EN")
+    ADJUST_FILTER = Translator("ADJUST FILTER SETTINGS", "MenuNames_ADJUST_FILER", "EN")
+    LOG_BLOCKED_ACTIVITY = Translator("LOG BLOCKED ACTIVITY:", "MenuNames_LOG_BLOCKED_ACTIVITY", "EN")
+    OPEN_DONATION_URL = Translator("Open Donation URL", "MenuNames_OPEN_DONATION_URL", "EN")
+    EXIT_PROGRAM = Translator("EXIT PROGRAM", "MenuNames_EXIT_PROGRAM", "EN")
+    DROP_INC_80 = Translator("DROP INC 80:", "MenuNames_DROP_INC_80", "EN")
+    DROP_CLIENT_POST = Translator("DROP CLIENT POST [RECOMMENDED]:", "MenuNames_DROP_CLIENT_POST", "EN")
+    DROP_LENGTHS = Translator("DROP LENGTHS [EXPERIMENTAL]:", "MenuNames_DROP_LENGTHS", "EN")
+    FILTER_SETTINGS_GO_BACK = Translator("Go back", "MenuNames_FILTER_SETTINGS_GO_BACK", "EN")
+    CHANGE_LANGUAGE = Translator("CHANGE DISPLAY LANGUAGE", "MenuNames_CHANGE_LANGUAGE", "EN")
 
+    STOP = ""
+    START = ""
+
+    ERR_MSG_NO_FILTERS_1 = ""
+    ERR_MSG_NO_FILTERS_2 = ""
+    ERR_MSG_NO_FILTERS_3 = ""
+    ERR_MSG_NO_FILTERS_4 = ""
+    ERR_MSG_NO_FILTERS_5 = ""
+    ERR_MSG_NO_FILTERS_6 = ""
+
+    WRN_MSG_NO_SERVER_IP = ""
+
+    ADJUST_FILTER_DESC = ""
+    IS_LOGGING_DESC = ""
+    CHANGE_LANGUAGE_DESC = ""
+    EXIT_PROGRAM_DESC = ""
+    FILTER_SETTINGS_GO_BACK_DESC = ""
+
+    DROP_INC_80_EXPLANATION = ""
+    DROP_CLIENT_POST_EXPLANATION = ""
+    DROP_LENGTHS_EXPLANATION = ""
+
+    @staticmethod
+    def update_language(language):
+        for translator_object in vars(MenuText).values():
+            translator_object.set_language(language)
 
 class Menu:
     IS_FILTER_RUNNING = True
@@ -64,28 +91,35 @@ class Menu:
     Key is text to change option.
     """
     MAIN_OPTIONS = {"1": {"value": IS_FILTER_RUNNING,
-                          "name": MenuNames.FILTER,
+                          "name": MenuText.FILTER.get_message("EN"),
+                          "visual_name": MenuText.FILTER.get_message(DISPLAY_LANGUAGE),
                           "desc": "Press 1 to "+START_STOP_STR+" the network filter.",
                           "action": toggle_option},
                     "2": {"value": "",
-                          "name": MenuNames.ADJUST_FILTER,
+                          "name": MenuText.ADJUST_FILTER.get_message("EN"),
+                          "visual_name": MenuText.FILTER.get_message(DISPLAY_LANGUAGE),
                           "desc": "Change / update which filters you're currently using.",},
                     "3": {"value": IS_LOGGING,
-                          "name": MenuNames.LOG_BLOCKED_ACTIVITY,
+                          "name": MenuText.LOG_BLOCKED_ACTIVITY.get_message("EN"),
+                          "visual_name": MenuText.FILTER.get_message(DISPLAY_LANGUAGE),
                           "desc": "Log information to the debug file about what was blocked and why.",
                           "action": toggle_option},
                     "4": {"value": "",
-                          "name": MenuNames.CHANGE_LANGUAGE,
+                          "name": MenuText.CHANGE_LANGUAGE.get_message("EN"),
+                          "visual_name": MenuText.FILTER.get_message(DISPLAY_LANGUAGE),
                           "desc": "Change the language of the menus."},
                     "5": {"value": "",
-                          "name": MenuNames.OPEN_DONATION_URL,
+                          "name": MenuText.OPEN_DONATION_URL.get_message("EN"),
+                          "visual_name": MenuText.FILTER.get_message(DISPLAY_LANGUAGE),
                           "desc": "If this program helped you, donating would be a great way of saying thanks."},
                     "x": {"value": "",
-                          "name": MenuNames.EXIT_PROGRAM,
+                          "name": MenuText.EXIT_PROGRAM.get_message("EN"),
+                          "visual_name": MenuText.FILTER.get_message(DISPLAY_LANGUAGE),
                           "desc": "Safely exit the program."}}
 
     FILTER_OPTIONS = {"1": {"value": IS_DROP_INC_80,
-                            "name": MenuNames.DROP_INC_80,
+                            "name": MenuText.DROP_INC_80.get_message("EN"),
+                            "visual_name": MenuText.FILTER.get_message(DISPLAY_LANGUAGE),
                             "desc": "In order to notify your client of an incoming notification, R* Servers\n"
                                     "will send you a specific packet. Dropping this packet will prevent your client\n"
                                     "from being made aware of new notifications entirely. This method is fast and\n"
@@ -93,7 +127,8 @@ class Menu:
                                     "notifications when the filter is turned off.",
                                     "action": toggle_option},
                       "2": {"value": IS_DROP_CLIENT_POST,
-                            "name": MenuNames.DROP_CLIENT_POST,
+                            "name": MenuText.DROP_CLIENT_POST.get_message("EN"),
+                            "visual_name": MenuText.FILTER.get_message(DISPLAY_LANGUAGE),
                             "desc": "If your client is informed that it has notifications to fetch\n"
                                     "(i.e. DROP INC 80 is OFF), your client will POST some data to a specific endpoint.\n"
                                     "Enabling this setting will drop packets that are sent to this endpoint.\n"
@@ -101,7 +136,8 @@ class Menu:
                                     "expensive and will block all notifications.",
                                     "action": toggle_option},
                       "3": {"value": IS_DROP_LENGTH,
-                            "name": MenuNames.DROP_LENGTHS,
+                            "name": MenuText.DROP_LENGTHS.get_message("EN"),
+                            "visual_name": MenuText.FILTER.get_message(DISPLAY_LANGUAGE),
                             "desc": "All payloads sent and received when playing GTA Online are encrypted, but\n"
                                     "uncompressed. This means that even if we can't see the packet's details, we can\n"
                                     "\"guess\" what type it is based on its' size. This method is surprisingly powerful\n"
@@ -109,7 +145,8 @@ class Menu:
                                     "However, this filter is a work in progress and may not behave correctly.",
                                     "action": toggle_option},
                       "b": {"value": "",
-                            "name": MenuNames.FILTER_SETTINGS_GO_BACK,
+                            "name": MenuText.FILTER_SETTINGS_GO_BACK.get_message("EN"),
+                            "visual_name": MenuText.FILTER.get_message(DISPLAY_LANGUAGE),
                             "desc": "Save your changes and go back to the main menu."}}
 
     @staticmethod

@@ -29,6 +29,19 @@ class MissingTranslationBehaviour(Enum):
     MISSING_TRANSLATION_TEXT = auto()
 
 
+class TranslatorManager:
+
+    saved_translations = {}
+
+    @staticmethod
+    def add_translation(message, location, language):
+        TranslatorManager.saved_translations[(location, language)] = message
+
+    @staticmethod
+    def get_translation(location, language):
+        return TranslatorManager.saved_translations[(location, language)]
+
+
 class Translator:
     """
     The Translator class allows messages to be constructed using a specific language, and then "swapped out" by loading
@@ -45,7 +58,7 @@ class Translator:
 
     def __init__(self, message, location, language="EN",
                  no_translation=MissingTranslationBehaviour.MISSING_TRANSLATION_TEXT,
-                 write_translation=False, override_translation=True):
+                 write_translation=True, override_translation=True):
         self.translations = {language: message}
         self.location = location
         self.current_language = language
@@ -56,6 +69,12 @@ class Translator:
 
         if self.should_write:
             self.write_translation()
+
+        TranslatorManager.add_translation(message, location, language)
+        return
+
+    def __str__(self):
+        return self.get_message(self.current_language)
 
     def get_message(self, language=None):
         if language is None:
@@ -87,7 +106,13 @@ class Translator:
         self.get_message(language)
         self.current_language = language    # If we reached here, then a translation exists.
 
-    def load_message(self, language):
+    def load_message(self, language, force_load_from_file=False):
+        if not force_load_from_file:
+            try:
+                return TranslatorManager.get_translation(self.location, language)
+            except KeyError:
+                pass
+
         handle = None
         try:
             handle = open(self.get_file_location(language))
@@ -110,6 +135,7 @@ class Translator:
         return message
 
     def save_translation(self, message, language):
+        TranslatorManager.add_translation(message, self.location, language)
         self.translations[language] = message
 
     def write_translation(self, language=None):
