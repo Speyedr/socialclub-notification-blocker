@@ -20,7 +20,7 @@ Dutch | [English](../../README.md) | [French](../FR/README.md) | [Romanian](../R
 5. Gebruik de toetsen op jouw toetsenbord om door het menu te navigeren.
 
 ## Configuratie
- - Slaat automatisch jouw instelling op in `settings.ini`. Raak het niet aan. Als je het doet en het programma crasht, verwijder het bestand, start het programma opnieuw en het programma keert terug naar de standaardinstellingen.
+ - Slaat automatisch jouw instelling op in `config.ini`. Raak het niet aan. Als je het doet en het programma crasht, verwijder het bestand, start het programma opnieuw en het programma keert terug naar de standaardinstellingen.
 
  - Als `LOG BLOCKED ACTIVITY` is **ON**, het programma zal informatie over gedropte pakketten loggen in `debug.log`. Als je het log wilt bekijken in real-time, kun je gebruik maken van zoiets als [mTail](http://ophilipp.free.fr/op_tail.htm).
 

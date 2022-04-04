@@ -20,7 +20,7 @@
 5. Folosește tastele pentru a naviga meniul.
 
 ## Configurație
- - Programul salvează automat setările în `settings.ini`. Nu te atinge de acest fișier. Dacă o faci și programul se blochează, șterge fișierul, restartează programul, și acesta va reveni la setările implicite.
+ - Programul salvează automat setările în `config.ini`. Nu te atinge de acest fișier. Dacă o faci și programul se blochează, șterge fișierul, restartează programul, și acesta va reveni la setările implicite.
  - Dacă `LOG BLOCKED ACTIVITY` este **ON**, programul va înregistra informația despre packet-uri pierdute în `debug.log`. Dacă dorești sa vizualizezi informația în timp real, poți să utilizezi un program precum [mTail](http://ophilipp.free.fr/op_tail.htm).
 
 ## Observații

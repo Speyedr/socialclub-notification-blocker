@@ -20,7 +20,7 @@
 5. Use the keys on your keyboard to navigate the menu.
 
 ## Configuration
- - Automatically saves your settings at `settings.ini`. Don't touch it. If you do and the program crashes, delete the file, restart the program, and the program will revert to defaults.
+ - Automatically saves your settings at `config.ini`. Don't touch it. If you do and the program crashes, delete the file, restart the program, and the program will revert to defaults.
  - If `LOG BLOCKED ACTIVITY` is **ON**, the program will log information about dropped packets in `debug.log`. If you want to watch the log in real-time, you can use something like [mTail](http://ophilipp.free.fr/op_tail.htm).
 
 ## Notices

@@ -24,7 +24,7 @@
 
 ## Configuration
 
-* Sauvegarde automatique de vos paramètres dans le fichier `settings.ini`. Ne le touchez pas. Si vous le faîtes, et que le programme crash, supprimez le fichier, et relancez le programme, celui-ci va directement remettre vos paramètres par défaut.
+* Sauvegarde automatique de vos paramètres dans le fichier `config.ini`. Ne le touchez pas. Si vous le faîtes, et que le programme crash, supprimez le fichier, et relancez le programme, celui-ci va directement remettre vos paramètres par défaut.
 * Si `LOG BLOCKED ACTIVITY` est **ON**, le programme va "log" (enregistrer) les informations à propos des paquets perdus dans `debug.log`. Si vous voulez regarder les logs en temps réel, vous pouvez utiliser un logiciel comme [mTail](http://ophilipp.free.fr/op_tail.htm).
 
 ## Notices
