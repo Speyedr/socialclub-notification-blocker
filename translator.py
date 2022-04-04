@@ -76,9 +76,12 @@ class Translator:
     def __str__(self):
         return self.get_message(self.current_language)
 
-    def get_message(self, language=None):
+    def get_message(self, language=None, error_behaviour=None):
         if language is None:
             language = self.current_language
+
+        if error_behaviour is None:
+            error_behaviour = self.error_behaviour
 
         try:
             return self.translations[language]      # Return message in the specified language.
@@ -87,13 +90,14 @@ class Translator:
                 return self.load_message(language)             # If no translation, attempt to load one from file.
             except MissingTranslation as e:
                 Logger.static_add_message(str(e), LOG_FILE)
-                if self.error_behaviour == MissingTranslationBehaviour.RAISE_EXCEPTION:
+                if error_behaviour == MissingTranslationBehaviour.RAISE_EXCEPTION:
                     raise MissingTranslation("A '" + language + "' translation for this message does not exist.")
-                if self.error_behaviour == MissingTranslationBehaviour.DEFAULT_TO_ENGLISH:
-                    return self.get_message("EN")
-                if self.error_behaviour == MissingTranslationBehaviour.MISSING_TRANSLATION_TEXT:
+                if error_behaviour == MissingTranslationBehaviour.DEFAULT_TO_ENGLISH:
+                    # Make sure to not infinitely recurse in case an English translation never existed
+                    return self.get_message("EN", MissingTranslationBehaviour.MISSING_TRANSLATION_TEXT)
+                if error_behaviour == MissingTranslationBehaviour.MISSING_TRANSLATION_TEXT:
                     return NO_TRANSLATION
-                assert False, "Undefined Missing Translation Behaviour: " + str(self.error_behaviour)
+                assert False, "Undefined Missing Translation Behaviour: " + str(error_behaviour)
 
     def set_language(self, language):
         """

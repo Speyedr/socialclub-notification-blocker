@@ -1,9 +1,11 @@
 from colorama import init, Fore, Back   # for colouring boolean options
-from translator import Translator
+from translator import Translator, MissingTranslationBehaviour as MTB
 from enum import Enum, auto
+from logger import Logger
 init()  # initializes colorama library
 
 DEFAULT_LANGUAGE = "EN"
+LOG_FILE = "menu.log"   # DEBUG: Will be changed to debug.log in production
 
 
 class MenuTypes(Enum):
@@ -34,44 +36,48 @@ def toggle_option(name):
 
 
 class MenuText:
-    FILTER = Translator("FILTER:", "MenuText_FILTER", "EN")
-    ADJUST_FILTER = Translator("ADJUST FILTER SETTINGS", "MenuText_ADJUST_FILER", "EN")
-    LOG_BLOCKED_ACTIVITY = Translator("LOG BLOCKED ACTIVITY:", "MenuText_LOG_BLOCKED_ACTIVITY", "EN")
-    OPEN_DONATION_URL = Translator("Open Donation URL", "MenuText_OPEN_DONATION_URL", "EN")
-    EXIT_PROGRAM = Translator("EXIT PROGRAM", "MenuText_EXIT_PROGRAM", "EN")
-    DROP_INC_80 = Translator("DROP INC 80:", "MenuText_DROP_INC_80", "EN")
-    DROP_CLIENT_POST = Translator("DROP CLIENT POST [RECOMMENDED]:", "MenuText_DROP_CLIENT_POST", "EN")
-    DROP_LENGTHS = Translator("DROP LENGTHS [EXPERIMENTAL]:", "MenuText_DROP_LENGTHS", "EN")
-    FILTER_SETTINGS_GO_BACK = Translator("Go back", "MenuText_FILTER_SETTINGS_GO_BACK", "EN")
-    CHANGE_LANGUAGE = Translator("CHANGE DISPLAY LANGUAGE", "MenuText_CHANGE_LANGUAGE", "EN")
+    FILTER = Translator("FILTER:", "MenuText_FILTER", "EN", MTB.DEFAULT_TO_ENGLISH)
+    ADJUST_FILTER = Translator("ADJUST FILTER SETTINGS", "MenuText_ADJUST_FILER", "EN", MTB.DEFAULT_TO_ENGLISH)
+    LOG_BLOCKED_ACTIVITY = Translator("LOG BLOCKED ACTIVITY:", "MenuText_LOG_BLOCKED_ACTIVITY", "EN", MTB.DEFAULT_TO_ENGLISH)
+    OPEN_DONATION_URL = Translator("Open Donation URL", "MenuText_OPEN_DONATION_URL", "EN", MTB.DEFAULT_TO_ENGLISH)
+    EXIT_PROGRAM = Translator("EXIT PROGRAM", "MenuText_EXIT_PROGRAM", "EN", MTB.DEFAULT_TO_ENGLISH)
+    DROP_INC_80 = Translator("DROP INC 80:", "MenuText_DROP_INC_80", "EN", MTB.DEFAULT_TO_ENGLISH)
+    DROP_CLIENT_POST = Translator("DROP CLIENT POST [RECOMMENDED]:", "MenuText_DROP_CLIENT_POST", "EN", MTB.DEFAULT_TO_ENGLISH)
+    DROP_LENGTHS = Translator("DROP LENGTHS [EXPERIMENTAL]:", "MenuText_DROP_LENGTHS", "EN", MTB.DEFAULT_TO_ENGLISH)
+    FILTER_SETTINGS_GO_BACK = Translator("Go back", "MenuText_FILTER_SETTINGS_GO_BACK", "EN", MTB.DEFAULT_TO_ENGLISH)
+    CHANGE_LANGUAGE = Translator("CHANGE DISPLAY LANGUAGE", "MenuText_CHANGE_LANGUAGE", "EN", MTB.DEFAULT_TO_ENGLISH)
 
-    STOP = Translator("Stop", "MenuText_STOP", "EN")
-    START = Translator("Start", "MenuText_START", "EN")
+    STOP = Translator("Stop", "MenuText_STOP", "EN", MTB.DEFAULT_TO_ENGLISH)
+    START = Translator("Start", "MenuText_START", "EN", MTB.DEFAULT_TO_ENGLISH)
 
-    FILTER_INSTRUCTIONS_1 = Translator("Press 1 to", "MenuText_FILTER_INSTRUCTIONS_1", "EN")
-    FILTER_INSTRUCTIONS_2 = Translator("the network filter.", "MenuText_FILTER_INSTRUCTIONS_2", "EN")
+    ON = Translator("ON", "MenuText_ON", "EN", MTB.DEFAULT_TO_ENGLISH)
+    OFF = Translator("OFF", "MenuText_OFF", "EN", MTB.DEFAULT_TO_ENGLISH)
+
+    FILTER_INSTRUCTIONS_1 = Translator("Press 1 to", "MenuText_FILTER_INSTRUCTIONS_1", "EN", MTB.DEFAULT_TO_ENGLISH)
+    FILTER_INSTRUCTIONS_2 = Translator("the network filter.", "MenuText_FILTER_INSTRUCTIONS_2", "EN", MTB.DEFAULT_TO_ENGLISH)
 
     ERR_MSG_NO_FILTERS_1 = Translator("ERROR: Attempted to start the network filter but",
-                                      "MenuText_ERR_MSG_NO_FILTERS_1", "EN")
-    ERR_MSG_NO_FILTERS_2 = Translator("no filters are enabled", "MenuText_ERR_MSG_NO_FILTERS_2", "EN")
-    ERR_MSG_NO_FILTERS_3 = Translator("Press 2", "MenuText_ERR_MSG_NO_FILTERS_3", "EN")
-    ERR_MSG_NO_FILTERS_4 = Translator("to open the filter settings and", "MenuText_ERR_MSG_NO_FILTERS_4", "EN")
-    ERR_MSG_NO_FILTERS_5 = Translator("enable at least one", "MenuText_ERR_MSG_NO_FILTERS_5", "EN")
-    ERR_MSG_NO_FILTERS_6 = Translator("of them!", "MenuText_ERR_MSG_NO_FILTERS_6", "EN")
+                                      "MenuText_ERR_MSG_NO_FILTERS_1", "EN", MTB.DEFAULT_TO_ENGLISH)
+    ERR_MSG_NO_FILTERS_2 = Translator("no filters are enabled", "MenuText_ERR_MSG_NO_FILTERS_2", "EN", MTB.DEFAULT_TO_ENGLISH)
+    ERR_MSG_NO_FILTERS_3 = Translator("Press 2", "MenuText_ERR_MSG_NO_FILTERS_3", "EN", MTB.DEFAULT_TO_ENGLISH)
+    ERR_MSG_NO_FILTERS_4 = Translator("to open the filter settings and", "MenuText_ERR_MSG_NO_FILTERS_4", "EN", MTB.DEFAULT_TO_ENGLISH)
+    ERR_MSG_NO_FILTERS_5 = Translator("enable at least one", "MenuText_ERR_MSG_NO_FILTERS_5", "EN", MTB.DEFAULT_TO_ENGLISH)
+    ERR_MSG_NO_FILTERS_6 = Translator("of them!", "MenuText_ERR_MSG_NO_FILTERS_6", "EN", MTB.DEFAULT_TO_ENGLISH)
 
     WRN_MSG_NO_SERVER_IP = Translator("WARNING: Server IP could not be resolved, using backup filter.\n"
                                       "Performance may be sub-optimal. Restart the filter to try again,\n"
                                       "or Press 2 to open the filter settings and select DROP_INC_80.",
-                                      "MenuText_WRN_MSG_NO_SERVER_IP", "EN")
+                                      "MenuText_WRN_MSG_NO_SERVER_IP", "EN", MTB.DEFAULT_TO_ENGLISH)
 
     ADJUST_FILTER_DESC = Translator("Change / update which filters you're currently using.",
-                                    "MenuText_ADJUST_FILTER_DESC", "EN")
-    IS_LOGGING_DESC = Translator("Log information to the debug file about what was blocked and why.",
-                                 "MenuText_IS_LOGGING_DESC", "EN")
-    CHANGE_LANGUAGE_DESC = Translator("Change the language of the menus.", "MenuText_CHANGE_LANGUAGE_DESC", "EN")
-    EXIT_PROGRAM_DESC = Translator("Safely exit the program.", "MenuText_EXIT_PROGRAM_DESC", "EN")
+                                    "MenuText_ADJUST_FILTER_DESC", "EN", MTB.MISSING_TRANSLATION_TEXT)
+    LOG_BLOCKED_ACTIVITY_DESC = Translator("Log information to the debug file about what was blocked and why.",
+                                           "MenuText_IS_LOGGING_DESC", "EN", MTB.MISSING_TRANSLATION_TEXT)
+    CHANGE_LANGUAGE_DESC = Translator("Change the language of the menus.",
+                                      "MenuText_CHANGE_LANGUAGE_DESC", "EN", MTB.MISSING_TRANSLATION_TEXT)
+    EXIT_PROGRAM_DESC = Translator("Safely exit the program.", "MenuText_EXIT_PROGRAM_DESC", "EN", MTB.MISSING_TRANSLATION_TEXT)
     FILTER_SETTINGS_GO_BACK_DESC = Translator("Save your changes and go back to the main menu.",
-                                              "MenuText_FILTER_SETTINGS_GO_BACK_DESC", "EN")
+                                              "MenuText_FILTER_SETTINGS_GO_BACK_DESC", "EN", MTB.MISSING_TRANSLATION_TEXT)
 
     DROP_INC_80_EXPLANATION = Translator(
                                     "In order to notify your client of an incoming notification, R* Servers\n"
@@ -79,29 +85,30 @@ class MenuText:
                                     "from being made aware of new notifications entirely. This method is fast and\n"
                                     "simple but may conflict with in-game traffic, and you may be flooded with\n"
                                     "notifications when the filter is turned off.",
-                                    "MenuText_DROP_INC_80_EXPLANATION", "EN")
+                                    "MenuText_DROP_INC_80_EXPLANATION", "EN", MTB.MISSING_TRANSLATION_TEXT)
     DROP_CLIENT_POST_EXPLANATION = Translator(
                                     "If your client is informed that it has notifications to fetch\n"
                                     "(i.e. DROP INC 80 is OFF), your client will POST some data to a specific endpoint.\n"
                                     "Enabling this setting will drop packets that are sent to this endpoint.\n"
                                     "Much less likely to interfere with in-game traffic, but computationally\n"
                                     "expensive and will block all notifications.",
-                                    "MenuText_DROP_CLIENT_POST_EXPLANATION", "EN")
+                                    "MenuText_DROP_CLIENT_POST_EXPLANATION", "EN", MTB.MISSING_TRANSLATION_TEXT)
     DROP_LENGTHS_EXPLANATION = Translator(
                                     "All payloads sent and received when playing GTA Online are encrypted, but\n"
                                     "uncompressed. This means that even if we can't see the packet's details, we can\n"
                                     "\"guess\" what type it is based on its' size. This method is surprisingly powerful\n"
                                     "and can allow some notifications through while still blocking session invites.\n"
                                     "However, this filter is a work in progress and may not behave correctly.",
-                                    "MenuText_DROP_LENGTHS_EXPLANATION", "EN")
+                                    "MenuText_DROP_LENGTHS_EXPLANATION", "EN", MTB.MISSING_TRANSLATION_TEXT)
 
     @staticmethod
     def update_language(language):
-        for translator_object in vars(MenuText).values():
+        for attr_name, translator_object in vars(MenuText):
             if isinstance(translator_object, Translator):
                 translator_object.set_language(language)
             else:
-                pass    # TODO: Add logger warning message here
+                Logger.static_add_message("[WARNING]: MenuText." + str(attr_name) +
+                                          " is not an instance of Translator.", LOG_FILE)
 
 
 class Menu:
@@ -131,29 +138,29 @@ class Menu:
     """
     MAIN_OPTIONS = {"1": {"value": IS_FILTER_RUNNING,
                           "name": MenuText.FILTER.get_message("EN"),
-                          "visual_name": MenuText.FILTER.get_message(DISPLAY_LANGUAGE),
+                          "visual_name": MenuText.FILTER.get_message(),
                           "desc": "Press 1 to "+START_STOP_STR+" the network filter.",
                           "action": toggle_option},
                     "2": {"value": "",
                           "name": MenuText.ADJUST_FILTER.get_message("EN"),
-                          "visual_name": MenuText.FILTER.get_message(DISPLAY_LANGUAGE),
+                          "visual_name": MenuText.FILTER.get_message(),
                           "desc": "Change / update which filters you're currently using."},
                     "3": {"value": IS_LOGGING,
                           "name": MenuText.LOG_BLOCKED_ACTIVITY.get_message("EN"),
-                          "visual_name": MenuText.FILTER.get_message(DISPLAY_LANGUAGE),
+                          "visual_name": MenuText.FILTER.get_message(),
                           "desc": "Log information to the debug file about what was blocked and why.",
                           "action": toggle_option},
                     "4": {"value": "",
                           "name": MenuText.CHANGE_LANGUAGE.get_message("EN"),
-                          "visual_name": MenuText.FILTER.get_message(DISPLAY_LANGUAGE),
+                          "visual_name": MenuText.FILTER.get_message(),
                           "desc": "Change the language of the menus."},
                     "5": {"value": "",
                           "name": MenuText.OPEN_DONATION_URL.get_message("EN"),
-                          "visual_name": MenuText.FILTER.get_message(DISPLAY_LANGUAGE),
+                          "visual_name": MenuText.FILTER.get_message(),
                           "desc": "If this program helped you, donating would be a great way of saying thanks."},
                     "x": {"value": "",
                           "name": MenuText.EXIT_PROGRAM.get_message("EN"),
-                          "visual_name": MenuText.FILTER.get_message(DISPLAY_LANGUAGE),
+                          "visual_name": MenuText.FILTER.get_message(),
                           "desc": "Safely exit the program."}}
 
     FILTER_OPTIONS = {"1": {"value": IS_DROP_INC_80,
@@ -198,36 +205,62 @@ class Menu:
 
     @staticmethod
     def generate_main_menu():
-        return     {"1": {"value": Menu.IS_FILTER_RUNNING,
-                          "name": MenuText.FILTER.get_message("EN"),
-                          "visual_name": MenuText.FILTER.get_message(Menu.DISPLAY_LANGUAGE),
-                          "desc": Menu.filter_instructions(),
-                          "action": toggle_option},
-                    "2": {"value": "",
-                          "name": MenuText.ADJUST_FILTER.get_message("EN"),
-                          "visual_name": MenuText.FILTER.get_message(Menu.DISPLAY_LANGUAGE),
-                          "desc": "Change / update which filters you're currently using."},
-                    "3": {"value": Menu.IS_LOGGING,
-                          "name": MenuText.LOG_BLOCKED_ACTIVITY.get_message("EN"),
-                          "visual_name": MenuText.FILTER.get_message(Menu.DISPLAY_LANGUAGE),
-                          "desc": "Log information to the debug file about what was blocked and why.",
-                          "action": toggle_option},
-                    "4": {"value": "",
-                          "name": MenuText.CHANGE_LANGUAGE.get_message("EN"),
-                          "visual_name": MenuText.FILTER.get_message(Menu.DISPLAY_LANGUAGE),
-                          "desc": "Change the language of the menus."},
-                    "5": {"value": "",
-                          "name": MenuText.OPEN_DONATION_URL.get_message("EN"),
-                          "visual_name": MenuText.FILTER.get_message(Menu.DISPLAY_LANGUAGE),
-                          "desc": "If this program helped you, donating would be a great way of saying thanks."},
-                    "x": {"value": "",
-                          "name": MenuText.EXIT_PROGRAM.get_message("EN"),
-                          "visual_name": MenuText.FILTER.get_message(Menu.DISPLAY_LANGUAGE),
-                          "desc": "Safely exit the program."}}
+        return {"1": {"value": Menu.IS_FILTER_RUNNING,
+                      "name": MenuText.FILTER.get_message("EN"),
+                      "visual_name": MenuText.FILTER.get_message(),
+                      "desc": Menu.filter_instructions(),
+                      "action": toggle_option},
+
+                "2": {"value": "",
+                      "name": MenuText.ADJUST_FILTER.get_message("EN"),
+                      "visual_name": MenuText.ADJUST_FILTER.get_message(),
+                      "desc": MenuText.ADJUST_FILTER_DESC.get_message()},
+
+                "3": {"value": Menu.IS_LOGGING,
+                      "name": MenuText.LOG_BLOCKED_ACTIVITY.get_message("EN"),
+                      "visual_name": MenuText.LOG_BLOCKED_ACTIVITY.get_message(),
+                      "desc": MenuText.LOG_BLOCKED_ACTIVITY_DESC.get_message(),
+                      "action": toggle_option},
+
+                "4": {"value": "",
+                      "name": MenuText.CHANGE_LANGUAGE.get_message("EN"),
+                      "visual_name": MenuText.CHANGE_LANGUAGE.get_message(),
+                      "desc": MenuText.CHANGE_LANGUAGE_DESC.get_message()},
+
+                "5": {"value": "",
+                      "name": MenuText.OPEN_DONATION_URL.get_message("EN"),
+                      "visual_name": MenuText.OPEN_DONATION_URL.get_message(),
+                      "desc": "If this program helped you, donating would be a great way of saying thanks."},
+
+                "x": {"value": "",
+                      "name": MenuText.EXIT_PROGRAM.get_message("EN"),
+                      "visual_name": MenuText.EXIT_PROGRAM.get_message(),
+                      "desc": MenuText.EXIT_PROGRAM_DESC.get_message()}}
 
     @staticmethod
     def generate_filter_settings_menu():
-        return ""
+        return   {"1": {"value": Menu.IS_DROP_INC_80,
+                        "name": MenuText.DROP_INC_80.get_message("EN"),
+                        "visual_name": MenuText.DROP_INC_80.get_message(),
+                        "desc": MenuText.DROP_INC_80_EXPLANATION.get_message(),
+                        "action": toggle_option},
+
+                  "2": {"value": Menu.IS_DROP_CLIENT_POST,
+                        "name": MenuText.DROP_CLIENT_POST.get_message("EN"),
+                        "visual_name": MenuText.DROP_CLIENT_POST.get_message(),
+                        "desc": MenuText.DROP_CLIENT_POST_EXPLANATION.get_message(),
+                        "action": toggle_option},
+
+                  "3": {"value": Menu.IS_DROP_LENGTH,
+                        "name": MenuText.DROP_LENGTHS.get_message("EN"),
+                        "visual_name": MenuText.DROP_LENGTHS.get_message(),
+                        "desc": MenuText.DROP_LENGTHS_EXPLANATION.get_message(),
+                        "action": toggle_option},
+
+                  "b": {"value": "",
+                        "name": MenuText.FILTER_SETTINGS_GO_BACK.get_message("EN"),
+                        "visual_name": MenuText.FILTER_SETTINGS_GO_BACK.get_message(),
+                        "desc": MenuText.FILTER_SETTINGS_GO_BACK_DESC.get_message()}}
 
     @staticmethod
     def generate_language_settings_menu():
