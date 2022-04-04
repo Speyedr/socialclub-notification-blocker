@@ -20,7 +20,7 @@
 5. Use las teclas en su teclado para navegar por el menú.
 
 ## Configuración
- - La configuración se  guarda automáticamente en `settings.ini`. No toque ese archivo. Si lo hace y el programa se cuelga, borre el archivo, reinicie el programa y así el programa volverá al modo predeterminado.
+ - La configuración se  guarda automáticamente en `config.ini`. No toque ese archivo. Si lo hace y el programa se cuelga, borre el archivo, reinicie el programa y así el programa volverá al modo predeterminado.
  - Si el `REGISTRO DE ACTIVIDAD BLOQUEADA` está **ENCENDIDO**, el programa registrará la información de los paquetes perdidos en `debug.log`. Si quiere observar el registro en tiempo real, puede usar un programa como [mTail](http://ophilipp.free.fr/op_tail.htm).
 
 ## Avisos
