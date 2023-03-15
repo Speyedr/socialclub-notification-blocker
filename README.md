@@ -2,11 +2,9 @@
 
 English | [French](translations/FR/README.md) | [Romanian](translations/RO/README.md) | [Russian](translations/RU/README.md) | [Spanish](translations/ES/README.md)
 
-**8th of March, 2022 UPDATE: Rockstar has patched the current spectator exploit.**
+**16th of March, 2023 UPDATE: I have tweaked filter #2 to block the resource that is being abused to send bounty notifications.**
 
-**I've made an announcement on [the future of SCBlocker](https://github.com/Speyedr/socialclub-notification-blocker/discussions/12).**
-
-# [Download v0.1.1](https://github.com/Speyedr/socialclub-notification-blocker/releases/download/v0.1.1/SocialClubBlocker-0.1.1.zip)
+# [Download v0.2.0](https://github.com/Speyedr/socialclub-notification-blocker/releases/download/v0.2.0/SocialClubBlocker-0.2.0.zip)
 
 <img src="/img/SCBlockerTease1.png" alt="Main Menu" height=300 width=562>
 
