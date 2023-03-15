@@ -59,8 +59,8 @@ class DropLengthSettings:
 
 
 class FilterSettings:
-    CLIENT_POST_ENDPOINT = "/gta5/11/gameservices/Presence.asmx/GetMessages"      # Update if R* change the endpoint
-    CLIENT_POST_HOST = "prs-gta5-prod.ros.rockstargames.com"                      # Update if R* change the website
+    CLIENT_POST_ENDPOINT = "/gta5/11/gameservices/Inbox.asmx/Get(?:Unread)?Messages"  # Update if R* change the endpoint
+    CLIENT_POST_HOST = "inbox-gta5-prod.ros.rockstargames.com"                    # Update if R* change the website
     CLIENT_POST_METHOD = "POST"                                                   # Update if R* change the method
     CLIENT_POST_PROTOCOL = "HTTP/1.1"                                             # Update if R* change the protocol
     CLIENT_LINES = [CLIENT_POST_METHOD + " " + CLIENT_POST_ENDPOINT + " " + CLIENT_POST_PROTOCOL,
