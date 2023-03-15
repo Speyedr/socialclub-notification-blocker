@@ -1,6 +1,6 @@
 # SocialClub Notification Blocker
 
-English | [French](translations/FR/README.md) | [Romanian](translations/RO/README.md) | [Russian](translations/RU/README.md) | [Spanish](translations/ES/README.md)
+[Dutch](translations/NL/README.md) | English | [French](translations/FR/README.md) | [Romanian](translations/RO/README.md) | [Russian](translations/RU/README.md) | [Spanish](translations/ES/README.md)
 
 **16th of March, 2023 UPDATE: I have tweaked filter #2 to block the resource that is being abused to send bounty notifications.**
 
@@ -18,7 +18,7 @@ English | [French](translations/FR/README.md) | [Romanian](translations/RO/READM
 5. Use the keys on your keyboard to navigate the menu.
 
 ## Configuration
- - Automatically saves your settings at `settings.ini`. Don't touch it. If you do and the program crashes, delete the file, restart the program, and the program will revert to defaults.
+ - Automatically saves your settings at `config.ini`. Don't touch it. If you do and the program crashes, delete the file, restart the program, and the program will revert to defaults.
  - If `LOG BLOCKED ACTIVITY` is **ON**, the program will log information about dropped packets in `debug.log`. If you want to watch the log in real-time, you can use something like [mTail](http://ophilipp.free.fr/op_tail.htm).
 
 ## Notices
