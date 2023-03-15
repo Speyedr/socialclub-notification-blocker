@@ -2,9 +2,7 @@
 
 [Dutch](../NL/README.md) | [English](../../README.md) | [French](../FR/README.md) | Romanian | [Russian](../RU/README.md) | [Spanish](../ES/README.md)
 
-**8 Martie, 2022 UPDATE: Rockstar a reparat exploit-ul legat de modul spectator.**
 
-**Am făcut un anunț despre [viitorul SCBlocker](https://github.com/Speyedr/socialclub-notification-blocker/discussions/12).**
 
 # [Descarcă v0.1.1](https://github.com/Speyedr/socialclub-notification-blocker/releases/download/v0.1.1/SocialClubBlocker-0.1.1.zip)
 

@@ -2,9 +2,7 @@
 
 [Dutch](../NL/README.md) | [English](../../README.md) | [French](../FR/README.md) | [Romanian](../RO/README.md) | [Russian](../RU/README.md) | Spanish
 
-**8 de marzo de 2022 ACTUALIZACION: Rockstar ha corregido el exploit del espectador.**
 
-**Hice un anuncio sobre el mismo [futuro de SCBlocker](https://github.com/Speyedr/socialclub-notification-blocker/discussions/12).**
 
 # [Descargar v0.1.1](https://github.com/Speyedr/socialclub-notification-blocker/releases/download/v0.1.1/SocialClubBlocker-0.1.1.zip)
 

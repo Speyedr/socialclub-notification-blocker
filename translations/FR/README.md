@@ -2,9 +2,7 @@
 
 [Dutch](../NL/README.md) | [English](../../README.md) | French | [Romanian](../RO/README.md) | [Russian](../RU/README.md) | [Spanish](../ES/README.md)
 
-**8 Mars 2022 MISE A JOUR: Rockstar a patch le problème du spectateur mode.**
 
-**J'ai fait une annonce ici [Le futur de SCBlocker (bientôt traduit)](https://github.com/Speyedr/socialclub-notification-blocker/discussions/12).**
 
 # [Download v0.1.1](https://github.com/Speyedr/socialclub-notification-blocker/releases/download/v0.1.1/SocialClubBlocker-0.1.1.zip)
 

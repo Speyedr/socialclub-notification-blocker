@@ -2,9 +2,7 @@
 
 Dutch | [English](../../README.md) | [French](../FR/README.md) | [Romanian](../RO/README.md) | [Russian](../RU/README.md) | [Spanish](../ES/README.md)
 
-**8 maart 2022 UPDATE: Rockstar heeft de huidige toeschouwers-exploit gepatcht.**
 
-**Ik heb een aankondiging gemaakt in [de toekomst van SCBlocker](https://github.com/Speyedr/socialclub-notification-blocker/discussions/12).**
 
 # [Download v0.1.1](https://github.com/Speyedr/socialclub-notification-blocker/releases/download/v0.1.1/SocialClubBlocker-0.1.1.zip)
 

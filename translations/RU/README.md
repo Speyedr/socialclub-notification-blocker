@@ -2,9 +2,7 @@
 
 [Dutch](../NL/README.md) | [English](../../README.md) | [French](../FR/README.md) | [Romanian](../RO/README.md) | Russian | [Spanish](../ES/README.md)
 
-**ОБНОВЛЕНИЕ ОТ 8 МАРТА 2022: Rockstar убрали эксплоит, позволяющий приглашать в режиме наблюдателя.**
 
-**Я сделал объявление по поводу [будущего SCBlocker](https://github.com/Speyedr/socialclub-notification-blocker/discussions/12).**
 
 # [Скачать v0.1.1](https://github.com/Speyedr/socialclub-notification-blocker/releases/download/v0.1.1/SocialClubBlocker-0.1.1.zip)
 
