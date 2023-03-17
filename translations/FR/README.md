@@ -4,7 +4,7 @@
 
 
 
-# [Download v0.1.1](https://github.com/Speyedr/socialclub-notification-blocker/releases/download/v0.1.1/SocialClubBlocker-0.1.1.zip)
+# [Download v0.2.0](https://github.com/Speyedr/socialclub-notification-blocker/releases/download/v0.2.0/SocialClubBlocker-0.2.0.zip)
 
 <img src="/img/SCBlockerTease1.png" alt="Main Menu" height=300 width=562>
 
