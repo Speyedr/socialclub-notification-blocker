@@ -1,6 +1,6 @@
 # SocialClub Notification Blocker
 
-[Dutch](translations/NL/README.md) | English | [French](translations/FR/README.md) | [Romanian](translations/RO/README.md) | [Russian](translations/RU/README.md) | [Spanish](translations/ES/README.md)
+[Dutch](translations/NL/README.md) | English | [French](translations/FR/README.md) | [Romanian](translations/RO/README.md) | [Russian](translations/RU/README.md) | [Spanish](translations/ES/README.md) | [Turkish](translations/TR/README.md)
 
 **16th of March, 2023 UPDATE: I have tweaked filter #2 to block the resource that is being abused to send bounty notifications.**
 

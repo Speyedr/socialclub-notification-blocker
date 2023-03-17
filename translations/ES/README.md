@@ -1,6 +1,6 @@
 # SocialClub Notification Blocker
 
-[Dutch](../NL/README.md) | [English](../../README.md) | [French](../FR/README.md) | [Romanian](../RO/README.md) | [Russian](../RU/README.md) | Spanish
+[Dutch](../NL/README.md) | [English](../../README.md) | [French](../FR/README.md) | [Romanian](../RO/README.md) | [Russian](../RU/README.md) | Spanish | [Turkish](../TR/README.md)
 
 
 
