@@ -36,12 +36,13 @@ TRANSLATION_FOLDER = "translations"
 
 # Promotional URLs are currently just GitHub links but can be changed to any other link on request.
 TRANSLATION_CREDITS = [
-                        Author("coeurGG", "https://github.com/coeurGG", "French"),
+                        Author("coeurGG", "https://github.com/Ky0mie", "French"),
                         Author("Foxie117", "https://github.com/Foxie1171", "Russian"),
                         Author("TKMachine", "https://github.com/TKMachine", "Romanian"),
                         Author("Kyeki", "https://github.com/Kyekii", "Spanish"),
                         Author("jorgex", "https://github.com/jorgex94", "Spanish"),
-                        Author("Rav1sh", "https://github.com/Rav1sh", "Dutch")
+                        Author("Rav1sh", "https://github.com/Rav1sh", "Dutch"),
+                        Author("Tmp341", "https://github.com/Tmp341", "Turkish")
                       ]
 
 # Key is ISO 639-1 language code (which is also the name of the folder), value is name of the language.
@@ -53,7 +54,8 @@ LANGUAGES = {
                 "FR": "French",
                 "RU": "Russian",
                 "RO": "Romanian",
-                "NL": "Dutch"
+                "NL": "Dutch",
+                "TR": "Turkish"
 }
 
 LANGUAGE_FOLDERS = [file.path for file in scandir(TRANSLATION_FOLDER) if file.is_dir()]

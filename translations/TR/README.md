@@ -65,13 +65,13 @@ C:\Users\Speyedr\socialclub-notification-blocker> python setup.py build
 
 ### Tercümanlar
 
-- [coeurGG](https://github.com/coeurGG) (Fransızca)
-- [Foxie117](https://github.com/Foxie1171) (Rusça)
-- [TKMachine](https://github.com/TKMachine) (Romence)
-- [Kyeki](https://github.com/Kyekii) (İspanyolca)
-- [jorgex](https://github.com/jorgex94) (İspanyolca)
-- [Rav1sh](https://github.com/Rav1sh) (Flemenkçe)
-- [Tmp341](https://github.com/Tmp341) (Türkçe)
+- [coeurGG](https://github.com/Ky0mie) (French)
+- [Foxie117](https://github.com/Foxie1171) (Russian)
+- [TKMachine](https://github.com/TKMachine) (Romanian)
+- [Kyeki](https://github.com/Kyekii) (Spanish)
+- [jorgex](https://github.com/jorgex94) (Spanish)
+- [Rav1sh](https://github.com/Rav1sh) (Dutch)
+- [Tmp341](https://github.com/Tmp341) (Turkish)
 
 ## BAĞIŞ
  - PayPal / Kart: [ko-fi.com/Speyedr](https://ko-fi.com/speyedr)
